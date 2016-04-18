@@ -9,13 +9,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/TimeManage" />
+            <option value="$PROJECT_DIR$/Time" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/TimeManage" />
+            <option value="$PROJECT_DIR$/Time" />
           </set>
         </option>
       </GradleProjectSettings>
