@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#2DC8D5">
+
+
+    <ImageView
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <Button
+        android:layout_marginLeft="5dp"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:text="登录"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/bt_login"
+        android:textColor="#fff"
+        android:background="@drawable/bt_menu_bg"
+        android:layout_marginRight="5dp"/>
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:text="注册"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/bt_register"
+        android:textColor="#fff"
+        android:background="@drawable/bt_menu_bg"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+    </LinearLayout>
+</LinearLayout>
+
+    <ListView
+        android:layout_marginTop="10dp"
+        android:id="@+id/lv_menu_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:divider="@android:color/transparent"/>
 
 </LinearLayout>
