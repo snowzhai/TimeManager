@@ -67,7 +67,6 @@ public class HomeActivity extends SlidingFragmentActivity {
      * 双击退出函数
      */
     private static Boolean isExit = false;
-
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -76,7 +75,6 @@ public class HomeActivity extends SlidingFragmentActivity {
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
                 @Override
-
                 public void run() {
                     isExit = false; // 取消退出
                 }
