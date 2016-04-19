@@ -18,7 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service android:name=".Service.Lookservice"/>
 
+        <receiver android:name=".Service.InfoReceive">
+            <intent-filter>
+                <action android:name="com.tm.timemanager.changeinfo"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

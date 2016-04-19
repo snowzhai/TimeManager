@@ -3,6 +3,7 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
+import com.tm.timemanager.Service.Lookservice;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 
@@ -30,6 +32,16 @@ public class HomeActivity extends SlidingFragmentActivity {
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         slidingMenu.setBehindOffset(500);
         initFragment();
+
+        //开启收集数据的服务
+        Intent intent= new Intent(this, Lookservice.class);
+        startService(intent);
+       /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
+        for (int i=0;i<10;i++){
+            dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
+
+        }*/
+
     }
 
     private void initFragment() {
