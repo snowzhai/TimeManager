@@ -1,1 +1,1 @@
-include ':Time'
+include ':Time', ':slidingmenu-library'

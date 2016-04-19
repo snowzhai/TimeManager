@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/rl_main_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#2DC8D5">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"/>
+        <TextView
+            android:id="@+id/tv_main_hour"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:textStyle="italic"
+            android:textSize="90sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <TextView
+            android:id="@+id/tv_main_h"
+            android:layout_height="wrap_content"
+            android:text="h"
+            android:textStyle="italic"
+            android:textSize="60sp"
+            android:layout_width="wrap_content"
+            android:gravity="bottom"/>
+        <TextView
+            android:id="@+id/tv_main_minute"
+            android:layout_height="wrap_content"
+            android:text="34"
+            android:textStyle="italic"
+            android:textSize="80sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:gravity="right"/>
+        <TextView
+            android:id="@+id/tv_main_m"
+            android:layout_height="wrap_content"
+            android:text="m"
+            android:textSize="40sp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:gravity="bottom" />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+</LinearLayout>
