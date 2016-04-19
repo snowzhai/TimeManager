@@ -3,6 +3,7 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
+import com.tm.timemanager.Service.Lookservice;
+import com.tm.timemanager.application.Application;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 
