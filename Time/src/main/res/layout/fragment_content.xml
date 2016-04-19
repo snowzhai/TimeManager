@@ -5,10 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#2DC8D5">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Look Up"
+            android:textColor="#fff"
+            android:textSize="25sp"/>
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/ibn_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="menu"
+            android:src="@drawable/left_menu"/>
+        <ImageButton
+            android:id="@+id/right"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/right_share"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 
     <LinearLayout
         android:id="@+id/rl_main_content"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -32,7 +75,7 @@
             android:layout_height="wrap_content"
             android:text="h"
             android:textStyle="italic"
-            android:textSize="60sp"
+            android:textSize="50sp"
             android:layout_width="wrap_content"
             android:gravity="bottom"/>
         <TextView
@@ -40,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text="34"
             android:textStyle="italic"
-            android:textSize="80sp"
+            android:textSize="90sp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:gravity="right"/>
@@ -48,14 +91,21 @@
             android:id="@+id/tv_main_m"
             android:layout_height="wrap_content"
             android:text="m"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="italic"
             android:layout_width="wrap_content"
             android:gravity="bottom" />
         <TextView
             android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.7"/>
     </LinearLayout>
+
+    <com.tm.timemanager.view.RingView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</FrameLayout>
 
 </LinearLayout>

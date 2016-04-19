@@ -3,7 +3,6 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Window;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
-import com.tm.timemanager.Service.Lookservice;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 
@@ -24,13 +22,16 @@ public class HomeActivity extends SlidingFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+
+        int phoneWidth = Application.getPhoneWidth(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_home);
         SlidingMenu slidingMenu = getSlidingMenu();
         setBehindContentView(R.layout.layout_leftmenu);
         slidingMenu.setMode(SlidingMenu.LEFT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        slidingMenu.setBehindOffset(500);
+        slidingMenu.setBehindOffset(phoneWidth/2);
         initFragment();
 
         //开启收集数据的服务
@@ -46,7 +47,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private void initFragment() {
 
-        //layout_leftmenu和activity_main都是空的FrameLayout，用fragment去替换
+        //layout_leftmenu和activity_home都是空的FrameLayout，用fragment去替换
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_main_content, new ContentFragment(), "contentfragment");

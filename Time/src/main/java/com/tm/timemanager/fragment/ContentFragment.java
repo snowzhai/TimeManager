@@ -1,11 +1,16 @@
 package com.tm.timemanager.fragment;
 
 import android.animation.ValueAnimator;
+import android.app.Fragment;
 import android.graphics.Typeface;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
 
 
@@ -19,23 +24,34 @@ public class ContentFragment extends BaseFragment {
     private TextView tv_main_minute;
     private TextView tv_main_m;
     private LinearLayout rl_main_content;
+    private View view;
 
     @Override
     public View initViews() {
-        View view = View.inflate(mActivity, R.layout.fragment_content, null);
+        view = View.inflate(mActivity, R.layout.fragment_content, null);
 
-//
 //        FrameLayout.LayoutParams linearParams = (FrameLayout.LayoutParams) mLogin.getLayoutParams();
 //        linearParams.height = 200;
 //        mlogin.setLayoutParams(linearParams);
 
+
+        ImageButton ibn_menu = (ImageButton) view.findViewById(R.id.ibn_menu);
+        ibn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HomeActivity mainActivity = (HomeActivity)mActivity;
+                SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
+                slidingMenu.toggle();
+            }
+        });
 
         int screenWidth = mActivity.getWindowManager().getDefaultDisplay().getWidth(); // 屏幕宽
         int screenHeight =mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
 
         rl_main_content = (LinearLayout) view.findViewById(R.id.rl_main_content);
 
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rl_main_content.getLayoutParams();
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) rl_main_content.getLayoutParams();
         int i = (screenHeight > screenWidth) ? screenWidth : screenHeight;
         params.height = i;
         params.width = i;
@@ -47,14 +63,14 @@ public class ContentFragment extends BaseFragment {
         tv_main_m = (TextView) view.findViewById(R.id.tv_main_m);
 
 
-        ValueAnimator animator1 = ValueAnimator.ofFloat(0, Integer.parseInt(tv_main_hour.getText().toString()));
-        ValueAnimator animator2 = ValueAnimator.ofFloat(0, Integer.parseInt(tv_main_minute.getText().toString()));
+        ValueAnimator animator1 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_hour.getText().toString()));
+        ValueAnimator animator2 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_minute.getText().toString()));
 
         animator1.setDuration(1000);
         animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) (float) animation.getAnimatedValue();
+                int animatedValue = (int) animation.getAnimatedValue();
                 tv_main_hour.setText((animatedValue + ""));
             }
         });
@@ -64,7 +80,7 @@ public class ContentFragment extends BaseFragment {
         animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) (float) animation.getAnimatedValue();
+                int animatedValue = (int) animation.getAnimatedValue();
                 tv_main_minute.setText((animatedValue + ""));
             }
         });
@@ -80,7 +96,11 @@ public class ContentFragment extends BaseFragment {
         tv_main_m.setTypeface(tf);
 
 
-
-        return view ;
+        return view;
     }
+
+
+
+
+
 }
