@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/rl_main_titie"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#2DC8D5">
@@ -39,73 +40,32 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/right_share"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+           />
 
     </RelativeLayout>
 
-
-<FrameLayout
-    android:layout_width="match_parent"
+<RelativeLayout
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
+    <android.support.v4.view.ViewPager
+    android:id="@+id/vp_main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        />
 
-
-    <LinearLayout
-        android:id="@+id/rl_main_content"
-        android:layout_gravity="top"
-        android:gravity="center"
-        android:orientation="horizontal"
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/cpi_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2DC8D5">
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"/>
-        <TextView
-            android:id="@+id/tv_main_hour"
-            android:layout_height="wrap_content"
-            android:text="12"
-            android:textStyle="italic"
-            android:textSize="90sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"/>
-        <TextView
-            android:id="@+id/tv_main_h"
-            android:layout_height="wrap_content"
-            android:text="h"
-            android:textStyle="italic"
-            android:textSize="50sp"
-            android:layout_width="wrap_content"
-            android:gravity="bottom"/>
-        <TextView
-            android:id="@+id/tv_main_minute"
-            android:layout_height="wrap_content"
-            android:text="34"
-            android:textStyle="italic"
-            android:textSize="90sp"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="right"/>
-        <TextView
-            android:id="@+id/tv_main_m"
-            android:layout_height="wrap_content"
-            android:text="m"
-            android:textSize="30sp"
-            android:textStyle="italic"
-            android:layout_width="wrap_content"
-            android:gravity="bottom" />
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="0.7"/>
-    </LinearLayout>
+        android:paddingBottom="10dp"
+        app:radius="3dp"
+        app:fillColor="#444"
+        app:pageColor="#fff"
+        android:layout_below="@+id/vp_main"
+        android:layout_centerHorizontal="true"
+        android:background="#2DC8D5"/>
+</RelativeLayout>
 
-    <com.tm.timemanager.view.RingView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
-</FrameLayout>
 
 </LinearLayout>

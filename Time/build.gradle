@@ -24,4 +24,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:21.0.2'
     compile project(':slidingmenu-library')
+    compile project(path: ':MPChartLib')
+    compile project(':ViewPagerIndicator-lib')
 }

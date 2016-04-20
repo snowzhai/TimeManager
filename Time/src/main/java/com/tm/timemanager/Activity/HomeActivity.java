@@ -27,14 +27,13 @@ public class HomeActivity extends SlidingFragmentActivity {
 
         super.onCreate(savedInstanceState);
 
-
         int phoneWidth = Application.getPhoneWidth(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_home);
         SlidingMenu slidingMenu = getSlidingMenu();
         setBehindContentView(R.layout.layout_leftmenu);
         slidingMenu.setMode(SlidingMenu.LEFT);
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
         slidingMenu.setBehindOffset(phoneWidth/2);
         initFragment();
 
