@@ -1,17 +1,20 @@
 package com.tm.timemanager.fragment;
 
-import android.animation.ValueAnimator;
-import android.app.Fragment;
-import android.graphics.Typeface;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
+import com.tm.timemanager.pager.BasePager;
+import com.tm.timemanager.pager.HomePager;
+import com.tm.timemanager.pager.PiePager;
+
+import java.util.ArrayList;
 
 
 /**
@@ -19,12 +22,9 @@ import com.tm.timemanager.R;
  */
 public class ContentFragment extends BaseFragment {
 
-    private TextView tv_main_hour;
-    private TextView tv_main_h;
-    private TextView tv_main_minute;
-    private TextView tv_main_m;
-    private LinearLayout rl_main_content;
     private View view;
+    private ViewPager vp_main;
+    private ArrayList<BasePager> pagers;
 
     @Override
     public View initViews() {
@@ -46,60 +46,85 @@ public class ContentFragment extends BaseFragment {
             }
         });
 
-        int screenWidth = mActivity.getWindowManager().getDefaultDisplay().getWidth(); // 屏幕宽
-        int screenHeight =mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
 
-        rl_main_content = (LinearLayout) view.findViewById(R.id.rl_main_content);
-
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) rl_main_content.getLayoutParams();
-        int i = (screenHeight > screenWidth) ? screenWidth : screenHeight;
-        params.height = i;
-        params.width = i;
-        rl_main_content.setLayoutParams(params);
-
-        tv_main_hour = (TextView) view.findViewById(R.id.tv_main_hour);
-        tv_main_h = (TextView) view.findViewById(R.id.tv_main_h);
-        tv_main_minute = (TextView) view.findViewById(R.id.tv_main_minute);
-        tv_main_m = (TextView) view.findViewById(R.id.tv_main_m);
-
-
-        ValueAnimator animator1 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_hour.getText().toString()));
-        ValueAnimator animator2 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_minute.getText().toString()));
-
-        animator1.setDuration(1000);
-        animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) animation.getAnimatedValue();
-                tv_main_hour.setText((animatedValue + ""));
-            }
-        });
-        animator1.start();
-
-        animator2.setDuration(1000);
-        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int animatedValue = (int) animation.getAnimatedValue();
-                tv_main_minute.setText((animatedValue + ""));
-            }
-        });
-
-
-        animator2.start();
-
-
-        Typeface tf = Typeface.createFromAsset(mActivity.getAssets(), "fonts/FjallaOne-Regular.ttf");
-        tv_main_hour.setTypeface(tf);
-        tv_main_h.setTypeface(tf);
-        tv_main_minute.setTypeface(tf);
-        tv_main_m.setTypeface(tf);
-
+        vp_main = (ViewPager) view.findViewById(R.id.vp_main);
 
         return view;
     }
 
 
+    @Override
+    public void initData() {
+
+        pagers = new ArrayList<>();
+
+
+        pagers.add(new PiePager(mActivity));
+        pagers.add(new HomePager(mActivity));
+
+        vp_main.setAdapter(new MyPagerAdapter());
+        vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.i("vp_main",position+"--");
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        vp_main.setCurrentItem(1);
+
+
+    }
+
+    class MyPagerAdapter extends PagerAdapter{
+
+        private View view;
+
+        @Override
+        public int getCount() {
+            return pagers.size();
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return view == object;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+
+            switch (position){
+                case 0:
+                    PiePager piePager = (PiePager) pagers.get(position);
+                    container.addView(piePager.mView);
+                    view = piePager.mView;
+                    break;
+                case 1:
+                    HomePager homePager = (HomePager) pagers.get(position);
+                    container.addView(homePager.mView);
+                    view = homePager.mView;
+                    break;
+            }
+
+            return view;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+
+            container.removeView(view);
+        }
+    }
 
 
 
