@@ -18,13 +18,15 @@ public class DBOpenHelperdao  {
         helper = new MyDBOpenHelper(context, null, null,1);
         db = helper.getReadableDatabase();
     }
-    public long insertBlackNumber(String packname,long starttime,int runtime,int clickcount){
+    public long insertBlackNumber(String date,String packname,String appname,long starttime,int runtime,int clickcount){
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
-        cv.put("packname",packname);
-        cv.put("starttime", starttime);
-        cv.put("runtime", runtime);
-        cv.put("clickcount", clickcount);
+        cv.put("date",date);//日期
+        cv.put("packname",packname);//包名
+        cv.put("appname",appname);//app名
+        cv.put("starttime", starttime);//开始时间
+        cv.put("runtime", runtime);//运行时间
+        cv.put("clickcount", clickcount);//点击次数
         long ret = db.insert("appdaily", null, cv);//blacknumber为表的名称
         //这里返回的是影响行数的行号 而不是影响的行数
         return ret;
