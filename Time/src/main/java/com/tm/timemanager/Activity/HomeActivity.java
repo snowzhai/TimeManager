@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -48,6 +49,9 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     }
 
+    public void getimage(View view){
+       startActivity(new Intent(this,MytestActivity.class));
+    }
     private void initFragment() {
 
         //layout_leftmenu和activity_home都是空的FrameLayout，用fragment去替换

@@ -17,8 +17,8 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table apptotal (id integer primary key autoincrement,date varchar(10) ,packname varchar(40),appname varchar(20),totaltime long,totalcount int )");
-        db.execSQL("create table appdaily (id integer primary key autoincrement,date varchar(10),packname varchar(40),appname varchar(20),starttime long,runtime int,clickcount int )");
+        db.execSQL("create table apptotal (id integer primary key autoincrement,date varchar(10) ,packname varchar(40),appname varchar(20),totaltime long,totalcount int,icon BLOB  );");
+        db.execSQL("create table appdaily (id integer primary key autoincrement,date varchar(10),packname varchar(40),appname varchar(20),starttime long,runtime int,clickcount int );");
     }
 
     @Override

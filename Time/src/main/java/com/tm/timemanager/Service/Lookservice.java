@@ -86,9 +86,7 @@ public class Lookservice extends Service {
 
                         appname = beforpackagename;                      //防止没有appname
                         appname = (String)applicationInfo.loadLabel(packageManager);
-
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
-
                         //如果runningname不为空的话就进来
                         if (!beforpackagename.equals("1")) {
                             Log.i("哈哈", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime+"--"+forheadtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
@@ -96,7 +94,8 @@ public class Lookservice extends Service {
                             if (!beforpackagename.startsWith("com.android.")&&starttime!=0) {
 //                                forheadtime=runningtime;//将当前的时间赋给之前的时间  因为当打开其它应用时才能拿到之前的应用的执行的时间aaa
                                 Log.i("哈哈数据库", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
-                                dao.insertBlackNumber(yearmouthday,beforpackagename,appname,starttime,runningtime,1);
+                                dao.insertappdaily(yearmouthday,beforpackagename,appname,starttime,runningtime,1);
+                                dao.insertapptotal(yearmouthday,beforpackagename,appname,runningtime,1,icon);
                             }
                         }
                         starttime = new Date().getTime();               //开始的时间
