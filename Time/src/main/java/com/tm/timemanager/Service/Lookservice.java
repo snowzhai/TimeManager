@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -54,6 +55,9 @@ public class Lookservice extends Service {
         //得到数据库的操作助手
         dao = new DBOpenHelperdao(getApplication());
         new Thread(new Runnable() {
+
+            private Cursor getapptotal;
+
             @Override
             public void run() {
                 while (true) {
@@ -86,17 +90,24 @@ public class Lookservice extends Service {
 
                         appname = beforpackagename;                      //防止没有appname
                         appname = (String)applicationInfo.loadLabel(packageManager);
-
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
-
                         //如果runningname不为空的话就进来
                         if (!beforpackagename.equals("1")) {
                             Log.i("哈哈", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime+"--"+forheadtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
                             //如果包名不是系统的应用  而且时间不为0的时候 就记录下来
                             if (!beforpackagename.startsWith("com.android.")&&starttime!=0) {
-//                                forheadtime=runningtime;//将当前的时间赋给之前的时间  因为当打开其它应用时才能拿到之前的应用的执行的时间aaa
                                 Log.i("哈哈数据库", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
-                                dao.insertBlackNumber(yearmouthday,beforpackagename,appname,starttime,runningtime,1);
+                                dao.insertappdaily(yearmouthday,beforpackagename,appname,starttime,runningtime,1);
+                                //查询数据库
+                                getapptotal = dao.getapptotalhava(beforpackagename);
+                                //如果总的数据库中没有的话就加入  判断是否为空的方法是 Cursor.getCount()这么一个简单的函数，如果是0，表示Cursor为空；如果非0，则表示Cursor不为空。
+                                if(getapptotal.getCount()==0){
+                                    dao.insertapptotal(beforpackagename,appname,runningtime,1,icon);
+                                } else{
+                                    Log.i("哈哈哈",  appname +"--"+runningtime);
+                                    //如果总的数据库中有的话  就将使用时间  使用次数 在原来的基础上添加到里面
+                                    dao.updatetotal(appname,runningtime,1);
+                                }
                             }
                         }
                         starttime = new Date().getTime();               //开始的时间
@@ -110,8 +121,6 @@ public class Lookservice extends Service {
                     }else {
                         beforpackagename = runpackagename;
                     }
-
-
 
                     //如果正在运行的和将要运行的是同一个就计时
                     if (beforpackagename.equals(runpackagename)) {
