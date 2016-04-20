@@ -30,7 +30,7 @@ public class DBOpenHelperdao {
         db = helper.getReadableDatabase();
     }
 
-    //每天数据的插入
+    //app每天数据的插入
     public long insertappdaily(String date, String packname, String appname, long starttime, int runtime, int clickcount) {
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
@@ -46,12 +46,11 @@ public class DBOpenHelperdao {
     }
 
     //app总的情况的插入
-    public long insertapptotal(String date, String packname, String appname, int totaltime, int totalcount, Drawable icon) {
+    public long insertapptotal( String packname, String appname, int totaltime, int totalcount, Drawable icon) {
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
         byte[] icontobyte = Icontobyte(icon);
-        Log.i("哈哈图片",icontobyte.length+"");
-        cv.put("date", date);                //日期
+//        Log.i("哈哈图片", icontobyte.length + "");
         cv.put("packname", packname);        //包名
         cv.put("appname", appname);          //app名
         cv.put("totaltime", totaltime);         //运行时间
@@ -62,6 +61,36 @@ public class DBOpenHelperdao {
         return ret;
     }
 
+    //将所有天的所有数据查询出来
+    public Cursor getappdaily() {
+        //所有数据的结果游标集
+        Cursor cursor = db.rawQuery("select * from appdaily;", null);
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String date = cursor.getString(1);
+            String packname = cursor.getString(2);
+            String appname = cursor.getString(3);
+            long starttime = cursor.getLong(4);
+            int clickcount = cursor.getInt(5);
+        }
+        return cursor;
+    }
+    //判断总的app信息中有没有这个应用
+    public Cursor getapptotalhava(String packname){
+//        Cursor cursor = db.rawQuery("select * from apptotal;", null);
+        String [] columns={"packname"};
+        String[] whereargus={packname};
+        Cursor cursor = db.query("apptotal", columns, "packname=?", whereargus, null, null, null);
+        return cursor;
+    }
+
+    public void updatetotal(String appname,int runningtime,int totalcount){
+        String update ="update apptotal set totaltime=totaltime+"+runningtime+" where appname = '"+appname+"' ; ";
+        String update1 ="update apptotal set totalcount=totalcount+"+totalcount+" where appname = '"+appname+"' ; ";
+        Log.i("哈哈",appname);
+        db.execSQL(update);
+        db.execSQL(update1);
+    }
     //将图片转化成字节数组存到数据库中
     public byte[] Icontobyte(Drawable icon) {
         try {
@@ -74,19 +103,21 @@ public class DBOpenHelperdao {
         }
         return baos.toByteArray();
     }
+
     //从数据库中将图片区出来
-    public Bitmap getimagefrom(String id){
+    public Bitmap getimagefrom(String id) {
 
         Cursor cursor = db.rawQuery("select id,icon from apptotal where id=?", new String[]{id});
-        while (cursor.moveToNext()){
-            byte[] in=cursor.getBlob(cursor.getColumnIndex("icon"));
-            Log.i("哈哈",in.length+"");
-            Log.i("哈哈",in.toString());
+        while (cursor.moveToNext()) {
+            byte[] in = cursor.getBlob(cursor.getColumnIndex("icon"));
+//            Log.i("哈哈", in.length + "");
+//            Log.i("哈哈", in.toString());
             bitmap = BitmapFactory.decodeByteArray(in, 0, in.length);
         }
 
         return bitmap;
     }
+    //示例 如何将图片设置到view中
     //设置图片
   /*  public void get(View view){
 
