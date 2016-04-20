@@ -22,12 +22,13 @@ import java.util.List;
  */
 public class Lookservice extends Service {
     private ActivityManager ams;
-    private String packagename = "com.android.zhai";
+    private String runpackagename = "com.android.zhai";
     private ActivityManager.RunningAppProcessInfo runningAppProcessInfo;
     private List<ActivityManager.RunningAppProcessInfo> runningServices;
-    private String runningname = "1";
+    private String beforpackagename = "1";
     private long starttime;
     private int runningtime;
+    private int forheadtime;
     private DateFormat dateFormatday;
     private String yearmouthday;
     private String todayhours;
@@ -36,6 +37,7 @@ public class Lookservice extends Service {
     private ApplicationInfo applicationInfo;
     private String appname;
     private DBOpenHelperdao dao;
+    private SimpleDateFormat hourmin;
 
     @Nullable
     @Override
@@ -48,10 +50,9 @@ public class Lookservice extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         ams = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
+        hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //得到数据库的操作助手
         dao = new DBOpenHelperdao(getApplication());
-        starttime=0;
-        runningtime=0;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -66,45 +67,57 @@ public class Lookservice extends Service {
                     //得到最近刚打开的应用
                     runningAppProcessInfo = runningServices.get(0);
                     //得到它的名字
-                    packagename = runningAppProcessInfo.processName;
-                    //如果正在运行的现在将要运行的不是同一个就进来
-                    if (!runningname.equals(packagename)) {
+                    runpackagename = runningAppProcessInfo.processName;
+//                    Log.i("哈哈",runpackagename+"--"+beforpackagename);
 
+                    //如果正在运行的现在将要运行的不是同一个就进来  runningname正在运行   packagename马上要打开
+                    if (!beforpackagename.equals(runpackagename)&&!beforpackagename.equals("1")) {
+
+//                        Log.i("哈哈1",runpackagename+"--"+beforpackagename);
                         //得到这个名字的信息  从这里面拿icon appname
                         try {
-                            applicationInfo = packageManager.getApplicationInfo(packagename, 0);
-                            icon = packageManager.getApplicationIcon(packagename);
+                            applicationInfo = packageManager.getApplicationInfo(beforpackagename, 0);
+                            icon = packageManager.getApplicationIcon(beforpackagename);
 
                         } catch (PackageManager.NameNotFoundException e) {
                             e.printStackTrace();
                         }
 
-                        starttime = new Date().getTime();               //开始的时间
-                        yearmouthday =dateFormatday.format(starttime);//得到这个时间的日期
-                        todayhours = String.valueOf(new Date().getHours());//得到这个时间的所属小时
-                        appname = packagename;                      //防止没有appname
+
+                        appname = beforpackagename;                      //防止没有appname
                         appname = (String)applicationInfo.loadLabel(packageManager);
 
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
 
                         //如果runningname不为空的话就进来
-                        if (!runningname.equals("1")) {
-                            Log.i("哈哈", packagename + "--" + appname + "--"+"上个应用运行时间："+runningtime + "--"+"开始时间："+ starttime + "---" + yearmouthday + "---" + todayhours);
-                            dao.insertBlackNumber(yearmouthday,packagename,appname,starttime,runningtime,1);
+                        if (!beforpackagename.equals("1")) {
+                            Log.i("哈哈", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime+"--"+forheadtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
+                            //如果包名不是系统的应用  而且时间不为0的时候 就记录下来
+                            if (!beforpackagename.startsWith("com.android.")&&starttime!=0) {
+//                                forheadtime=runningtime;//将当前的时间赋给之前的时间  因为当打开其它应用时才能拿到之前的应用的执行的时间aaa
+                                Log.i("哈哈数据库", beforpackagename + "--" + appname + "--"+"应用运行时间："+runningtime + "--"+"开始时间："+ hourmin.format(starttime) + "---" + yearmouthday + "---" + todayhours);
+                                dao.insertBlackNumber(yearmouthday,beforpackagename,appname,starttime,runningtime,1);
+                            }
                         }
-
+                        starttime = new Date().getTime();               //开始的时间
+                        yearmouthday =dateFormatday.format(starttime);//得到这个时间的日期
+                        todayhours = String.valueOf(new Date().getHours());//得到这个时间的所属小时
                         //如果应用是系统的应用就不计时
-                        if (!packagename.startsWith("com.android.")) {
+                        if (!runpackagename.startsWith("com.android.")) {
                             runningtime = 0;
                         }
-                        runningname = packagename;
+                        beforpackagename = runpackagename;
+                    }else {
+                        beforpackagename = runpackagename;
                     }
+
+
+
                     //如果正在运行的和将要运行的是同一个就计时
-                    if (runningname.equals(packagename)) {
+                    if (beforpackagename.equals(runpackagename)) {
+
                         runningtime = runningtime + 1;
-
                     }
-
 
                     try {
                         Thread.sleep(1000);

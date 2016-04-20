@@ -13,7 +13,6 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.tm.timemanager.application.Application;
 
@@ -55,7 +54,7 @@ public class RingView extends View{
         mPaint.setStyle(Paint.Style.STROKE);
         PathEffect effect = new DashPathEffect(new float[] { 5, 8, 5,8}, 1);
         mPaint.setPathEffect(effect);
-        mPaint.setStrokeWidth(80);
+        mPaint.setStrokeWidth(i/10);
     }
 
     public void getArc(Canvas canvas, float o_x, float o_y, float r,
