@@ -6,7 +6,7 @@ import android.view.View;
 /**
  * Created by CHENQIAO on 2016/4/20.
  */
-public class BasePager {
+public abstract class BasePager {
 
 
     public Activity mActivity;
@@ -15,5 +15,7 @@ public class BasePager {
     public BasePager(Activity activity) {
         mActivity = activity;
     }
+
+     public abstract void initView();
 
 }

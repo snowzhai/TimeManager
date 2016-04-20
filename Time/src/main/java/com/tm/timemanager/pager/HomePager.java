@@ -14,7 +14,6 @@ import com.tm.timemanager.R;
  */
 public class HomePager extends BasePager {
 
-    public Activity mActivity;
     private TextView tv_main_hour;
     private TextView tv_main_h;
     private TextView tv_main_minute;
@@ -24,7 +23,6 @@ public class HomePager extends BasePager {
 
     public HomePager(Activity activity) {
         super(activity);
-        mActivity = activity;
         initView();
     }
 

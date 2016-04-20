@@ -9,14 +9,18 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
+            <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />
             <option value="$PROJECT_DIR$/slidingmenu-library" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
+            <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />
             <option value="$PROJECT_DIR$/slidingmenu-library" />
           </set>
         </option>

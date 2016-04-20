@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/rl_main_titie"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#2DC8D5">
@@ -39,16 +40,32 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:src="@drawable/right_share"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+           />
 
     </RelativeLayout>
 
-
-<android.support.v4.view.ViewPager
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <android.support.v4.view.ViewPager
     android:id="@+id/vp_main"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        />
 
+    <com.viewpagerindicator.CirclePageIndicator
+        android:id="@+id/cpi_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        app:radius="3dp"
+        app:fillColor="#444"
+        app:pageColor="#fff"
+        android:layout_below="@+id/vp_main"
+        android:layout_centerHorizontal="true"
+        android:background="#2DC8D5"/>
+</RelativeLayout>
 
 
 </LinearLayout>
