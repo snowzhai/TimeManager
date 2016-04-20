@@ -13,7 +13,6 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.tm.timemanager.application.Application;
 
