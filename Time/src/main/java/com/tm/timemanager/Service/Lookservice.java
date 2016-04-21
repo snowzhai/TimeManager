@@ -107,6 +107,15 @@ public class Lookservice extends Service {
                                     Log.i("哈哈哈",  appname +"--"+runningtime);
                                     //如果总的数据库中有的话  就将使用时间  使用次数 在原来的基础上添加到里面
                                     dao.updatetotal(appname,runningtime,1);
+
+                                    //测试数据库操作函数是否正确
+                                    Cursor getapptotal = dao.getapptotal();
+                                    Cursor getappdaily = dao.getappdaily("20160421");
+                                    Cursor getappdaily1 = dao.getappdaily();
+                                    int count2 = getappdaily1.getCount();
+                                    int count1 = getappdaily.getCount();
+                                    int count = getapptotal.getCount();
+                                    Log.i("哈哈",""+count+"---"+count1+"---"+count2);
                                 }
                             }
                         }
@@ -121,13 +130,10 @@ public class Lookservice extends Service {
                     }else {
                         beforpackagename = runpackagename;
                     }
-
                     //如果正在运行的和将要运行的是同一个就计时
                     if (beforpackagename.equals(runpackagename)) {
-
                         runningtime = runningtime + 1;
                     }
-
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -138,6 +144,4 @@ public class Lookservice extends Service {
         }).start();
         return super.onStartCommand(intent, flags, startId);
     }
-
-
 }

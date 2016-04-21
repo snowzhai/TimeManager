@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 /**
- * Created by Administrator on 2016/4/19.
+ * Created by snow on 2016/4/19.
  */
 public class InfoReceive extends BroadcastReceiver {
 
