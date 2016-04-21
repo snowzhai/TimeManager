@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by Administrator on 2016/4/20.
+ * Created by snow on 2016/4/20.
  */
 public class DBOpenHelperdao {
 
@@ -60,7 +60,7 @@ public class DBOpenHelperdao {
         return ret;
     }
 
-    //将所有天的所有数据查询出来
+    //获得appdaily所有数据
     public Cursor getappdaily() {
         //所有数据的结果游标集
         Cursor cursor = db.rawQuery("select * from appdaily;", null);
@@ -82,27 +82,29 @@ public class DBOpenHelperdao {
         return cursor;
     }
 
-    //获得apptotal总的数据取出来
+    //获得apptotal总的数据
     public Cursor getapptotal() {
         Cursor cursor = db.rawQuery("select * from apptotal;", null);
 //      结果处理
-   /*    while (cursor.moveToNext()) {
-           int id = cursor.getInt(0);
-           String packname = cursor.getString(1);
-           String appname = cursor.getString(2);
-           long totaltime = cursor.getLong(3);
-           int totalcount = cursor.getInt(4);
-           byte[] icon = cursor.getBlob(5);
+       /*  while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String packname = cursor.getString(1);
+            String appname = cursor.getString(2);
+            long totaltime = cursor.getLong(3);
+            int totalcount = cursor.getInt(4);
+            byte[] icon = cursor.getBlob(5);
 
-           //如何将icon设置到imageview中
-          Bitmap bitmap = BitmapFactory.decodeByteArray(in, 0, icon.length);
+
+        //如何将icon设置到imageview中
+          Bitmap bitmap = getimagefrom(icon);
           ImageView imageView = (ImageView) findViewById(R.id.zhai);
           imageView.setImageBitmap(bitmap);
         }*/
-        return cursor;
-    }
+            return cursor;
+        }
 
-    //判断总的app信息中有没有这个应用
+        //判断apptotal中有没有这个应用
+
     public Cursor getapptotalhava(String packname) {
         String[] columns = {"packname"};
         String[] whereargus = {packname};
@@ -110,7 +112,7 @@ public class DBOpenHelperdao {
         return cursor;
     }
 
-    //将total中的数据动态改变
+    //将apptotal中的数据动态改变
     public void updatetotal(String appname, int runningtime, int totalcount) {
         String update = "update apptotal set totaltime=totaltime+" + runningtime + " , totalcount=totalcount+" + totalcount + " where appname = '" + appname + "' ; ";
         Log.i("哈哈", appname);
@@ -131,12 +133,8 @@ public class DBOpenHelperdao {
     }
 
     //从数据库中将图片区出来
-    public Bitmap getimagefrom(String id) {
-        Cursor cursor = db.rawQuery("select id,icon from apptotal where id=?", new String[]{id});
-        while (cursor.moveToNext()) {
-            byte[] in = cursor.getBlob(cursor.getColumnIndex("icon"));
-            bitmap = BitmapFactory.decodeByteArray(in, 0, in.length);
-        }
+    public Bitmap getimagefrom(byte[] icon) {
+        bitmap = BitmapFactory.decodeByteArray(icon, 0, icon.length);
         return bitmap;
     }
 }
