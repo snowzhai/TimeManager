@@ -6,9 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -47,12 +45,11 @@ public class ContentFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
 
-                HomeActivity mainActivity = (HomeActivity)mActivity;
+                HomeActivity mainActivity = (HomeActivity) mActivity;
                 SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
                 slidingMenu.toggle();
             }
         });
-
 
         vp_main = (ViewPager) view.findViewById(R.id.vp_main);
         cpi_main = (CirclePageIndicator) view.findViewById(R.id.cpi_main);
@@ -74,7 +71,7 @@ public class ContentFragment extends BaseFragment {
         vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("vp_main",position+"--");
+                Log.i("vp_main", position + "--");
             }
 
             @Override
@@ -91,7 +88,7 @@ public class ContentFragment extends BaseFragment {
         vp_main.setCurrentItem(1);
 
         int screenWidth = mActivity.getWindowManager().getDefaultDisplay().getWidth(); // 屏幕宽
-        int screenHeight =mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
+        int screenHeight = mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) vp_main.getLayoutParams();
         int i = (screenHeight > screenWidth) ? screenWidth : screenHeight;
         params.height = i;
@@ -103,7 +100,7 @@ public class ContentFragment extends BaseFragment {
         cpi_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("cpi_main",position+"");
+                Log.i("cpi_main", position + "");
             }
 
             @Override
@@ -121,7 +118,7 @@ public class ContentFragment extends BaseFragment {
 
     }
 
-    class MyPagerAdapter extends PagerAdapter{
+    class MyPagerAdapter extends PagerAdapter {
 
         private View view;
 
@@ -138,7 +135,7 @@ public class ContentFragment extends BaseFragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            switch (position){
+            switch (position) {
                 case 0:
                     PiePager piePager = (PiePager) pagers.get(position);
                     container.addView(piePager.mView);
@@ -160,7 +157,4 @@ public class ContentFragment extends BaseFragment {
             container.removeView(view);
         }
     }
-
-
-
 }

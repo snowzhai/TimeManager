@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\workspace\AndroidStudioProjects\TimeManager\slidingmenu-library\assets"/></dataSet><dataSet config="release"><source path="E:\workspace\AndroidStudioProjects\TimeManager\slidingmenu-library\src\release\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/chenkui/AndroidStudioProjects/MyGitHubApp/TimeManager/slidingmenu-library/assets"/></dataSet><dataSet config="release"><source path="/Users/chenkui/AndroidStudioProjects/MyGitHubApp/TimeManager/slidingmenu-library/src/release/assets"/></dataSet></merger>
