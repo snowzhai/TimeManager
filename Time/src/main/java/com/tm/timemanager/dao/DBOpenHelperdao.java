@@ -46,11 +46,10 @@ public class DBOpenHelperdao {
     }
 
     //app总的情况的插入
-    public long insertapptotal( String packname, String appname, int totaltime, int totalcount, Drawable icon) {
+    public long insertapptotal(String packname, String appname, int totaltime, int totalcount, Drawable icon) {
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
         byte[] icontobyte = Icontobyte(icon);
-//        Log.i("哈哈图片", icontobyte.length + "");
         cv.put("packname", packname);        //包名
         cv.put("appname", appname);          //app名
         cv.put("totaltime", totaltime);         //运行时间
@@ -65,32 +64,59 @@ public class DBOpenHelperdao {
     public Cursor getappdaily() {
         //所有数据的结果游标集
         Cursor cursor = db.rawQuery("select * from appdaily;", null);
-        while (cursor.moveToNext()) {
+      /*结果处理
+       while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String date = cursor.getString(1);
             String packname = cursor.getString(2);
             String appname = cursor.getString(3);
             long starttime = cursor.getLong(4);
             int clickcount = cursor.getInt(5);
-        }
+        }*/
         return cursor;
     }
+
+    //获得appdaily中某一天的所有信息
+    public Cursor getappdaily(String date) {
+        Cursor cursor = db.rawQuery("select * from appdaily where date='" + date + "';", null);
+        return cursor;
+    }
+
+    //获得apptotal总的数据取出来
+    public Cursor getapptotal() {
+        Cursor cursor = db.rawQuery("select * from apptotal;", null);
+//      结果处理
+   /*    while (cursor.moveToNext()) {
+           int id = cursor.getInt(0);
+           String packname = cursor.getString(1);
+           String appname = cursor.getString(2);
+           long totaltime = cursor.getLong(3);
+           int totalcount = cursor.getInt(4);
+           byte[] icon = cursor.getBlob(5);
+
+           //如何将icon设置到imageview中
+          Bitmap bitmap = BitmapFactory.decodeByteArray(in, 0, icon.length);
+          ImageView imageView = (ImageView) findViewById(R.id.zhai);
+          imageView.setImageBitmap(bitmap);
+        }*/
+        return cursor;
+    }
+
     //判断总的app信息中有没有这个应用
-    public Cursor getapptotalhava(String packname){
-//        Cursor cursor = db.rawQuery("select * from apptotal;", null);
-        String [] columns={"packname"};
-        String[] whereargus={packname};
+    public Cursor getapptotalhava(String packname) {
+        String[] columns = {"packname"};
+        String[] whereargus = {packname};
         Cursor cursor = db.query("apptotal", columns, "packname=?", whereargus, null, null, null);
         return cursor;
     }
 
-    public void updatetotal(String appname,int runningtime,int totalcount){
-        String update ="update apptotal set totaltime=totaltime+"+runningtime+" where appname = '"+appname+"' ; ";
-        String update1 ="update apptotal set totalcount=totalcount+"+totalcount+" where appname = '"+appname+"' ; ";
-        Log.i("哈哈",appname);
+    //将total中的数据动态改变
+    public void updatetotal(String appname, int runningtime, int totalcount) {
+        String update = "update apptotal set totaltime=totaltime+" + runningtime + " , totalcount=totalcount+" + totalcount + " where appname = '" + appname + "' ; ";
+        Log.i("哈哈", appname);
         db.execSQL(update);
-        db.execSQL(update1);
     }
+
     //将图片转化成字节数组存到数据库中
     public byte[] Icontobyte(Drawable icon) {
         try {
@@ -106,24 +132,11 @@ public class DBOpenHelperdao {
 
     //从数据库中将图片区出来
     public Bitmap getimagefrom(String id) {
-
         Cursor cursor = db.rawQuery("select id,icon from apptotal where id=?", new String[]{id});
         while (cursor.moveToNext()) {
             byte[] in = cursor.getBlob(cursor.getColumnIndex("icon"));
-//            Log.i("哈哈", in.length + "");
-//            Log.i("哈哈", in.toString());
             bitmap = BitmapFactory.decodeByteArray(in, 0, in.length);
         }
-
         return bitmap;
     }
-    //示例 如何将图片设置到view中
-    //设置图片
-  /*  public void get(View view){
-
-        DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
-        Bitmap getimagefrom = dbOpenHelperdao.getimagefrom("8");
-        ImageView imageView = (ImageView) findViewById(R.id.zhai);
-        imageView.setImageBitmap(getimagefrom);
-    }*/
 }
