@@ -77,6 +77,7 @@ public class Lookservice extends Service {
         dao = new DBOpenHelperdao(getApplication());
         new Thread(new Runnable() {
 
+            private String pkgName;
             private Cursor getapptotal;
 
             @Override
@@ -94,9 +95,19 @@ public class Lookservice extends Service {
 
 /*
 //                    List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();
-                    runningServices1 = ams.getRunningServices(1);
-                    String process = runningServices1.get(1).process;
-                    Log.i("啊哈哈",process);*/
+                    List<ActivityManager.RunningServiceInfo> runningServices = ams.getRunningServices(1);
+                    String process = runningServices.get(1).process;
+                    Log.i("啊哈哈process",process);
+*/
+
+                    /*for(ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()){
+                        if(runningAppProcessInfo.pid == pid){
+                            return processInfo.processName;
+                        }
+                    }
+*/
+                    pkgName = ams.getRunningTasks(1).get(0).topActivity.getPackageName();
+//                    Log.i("哈哈",pkgName);
 
                     //得到它的名字
                     runpackagename = runningAppProcessInfo.processName;
@@ -142,12 +153,13 @@ public class Lookservice extends Service {
                                     Cursor getappdaily1 = dao.getappdaily();
                                     Cursor getappevent = dao.getappevent();
                                     Cursor getappevent1 = dao.getappevent("20160421");
+                                    long getappeventtotalday = dao.getappeventtotalday("20160421");
                                     int count3 = getappevent.getCount();
                                     int count4 = getappevent1.getCount();
                                     int count2 = getappdaily1.getCount();
                                     int count1 = getappdaily.getCount();
                                     int count = getapptotal.getCount();
-                                    Log.i("哈哈",count+"--"+count1+"--"+count2+"解锁所有-"+count3+"-每天-"+count4);
+                                    Log.i("哈哈",count+"--"+count1+"--"+count2+"解锁所有-"+count3+"-每天-"+count4+"总的解锁时间"+getappeventtotalday);
                                 }
                             }
                         }

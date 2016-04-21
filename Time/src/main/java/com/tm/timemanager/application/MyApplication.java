@@ -3,7 +3,6 @@ package com.tm.timemanager.application;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.WindowManager;
 
 /**
@@ -45,8 +44,8 @@ public class MyApplication extends Application {
 
     //zhai的数据库
     public static void setapptime(String packname,int settime){
-        //为软件的计时 设计的SharedPreferences数据库  appsettime  文件为.xml文件
-        Log.i("啊啊啊",packname+settime);
+        //为软件计时 设计的SharedPreferences数据库  appsettime  文件为.xml文件
+//        Log.i("啊啊啊",packname+settime);
         setedit.putInt(packname,settime);       //将包名传入  放入设置的时间数据
         setedit.commit();
     }
