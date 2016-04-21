@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by snow on 2016/4/20.
+ * Created by Administrator on 2016/4/20.
  */
 public class DBOpenHelperdao {
 
@@ -50,6 +50,7 @@ public class DBOpenHelperdao {
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
         byte[] icontobyte = Icontobyte(icon);
+//        Log.i("哈哈图片", icontobyte.length + "");
         cv.put("packname", packname);        //包名
         cv.put("appname", appname);          //app名
         cv.put("totaltime", totaltime);         //运行时间
@@ -133,8 +134,8 @@ public class DBOpenHelperdao {
         String update = "update apptotal set totaltime=totaltime+" + runningtime + " , totalcount=totalcount+" + totalcount + " where appname = '" + appname + "' ; ";
         Log.i("哈哈", appname);
         db.execSQL(update);
+        db.execSQL(update1);
     }
-
     //将图片转化成字节数组存到数据库中
     public byte[] Icontobyte(Drawable icon) {
         try {

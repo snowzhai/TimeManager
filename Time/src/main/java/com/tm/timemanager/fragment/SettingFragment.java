@@ -2,8 +2,6 @@ package com.tm.timemanager.fragment;
 
 import android.view.View;
 
-import com.tm.timemanager.pager.BasePager;
-
 /**
  * Created by CHENQIAO on 2016/4/21.
  */

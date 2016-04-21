@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
+import com.tm.timemanager.view.RingView;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
@@ -87,8 +88,5 @@ public class HomePager extends BasePager {
         tv_main_h.setTypeface(tf);
         tv_main_minute.setTypeface(tf);
         tv_main_m.setTypeface(tf);
-
-
-
     }
 }

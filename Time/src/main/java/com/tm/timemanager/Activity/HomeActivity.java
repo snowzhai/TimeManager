@@ -17,11 +17,15 @@ import com.tm.timemanager.Service.Lookservice;
 import com.tm.timemanager.application.Application;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
+import com.tm.timemanager.fragment.ManagementFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeActivity extends SlidingFragmentActivity {
+
+    private FragmentManager fragmentManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -34,11 +38,11 @@ public class HomeActivity extends SlidingFragmentActivity {
         setBehindContentView(R.layout.layout_leftmenu);
         slidingMenu.setMode(SlidingMenu.LEFT);
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-        slidingMenu.setBehindOffset(phoneWidth/2);
+        slidingMenu.setBehindOffset(phoneWidth / 2);
         initFragment();
 
         //开启收集数据的服务
-        Intent intent= new Intent(this, Lookservice.class);
+        Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
 
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
@@ -49,31 +53,52 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     }
 
-    public void getimage(View view){
-       startActivity(new Intent(this,MytestActivity.class));
+    public void getimage(View view) {
+        startActivity(new Intent(this, MytestActivity.class));
     }
+
     private void initFragment() {
 
         //layout_leftmenu和activity_home都是空的FrameLayout，用fragment去替换
-        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager = getFragmentManager(); // 改为全局
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fl_main_content, new ContentFragment(), "contentfragment");
         fragmentTransaction.replace(R.id.fl_left_menu, new LeftMenuFragment(), "leftmenufragment");
         fragmentTransaction.commit();
 
 //        Fragment fragmentByTag = fragmentManager.findFragmentByTag();
-
     }
-
 
     //通过tag获取主界面activity的fragment，方便后面开发调用
     public Fragment getFragment(String tag) {
 
         FragmentManager fragmentManager = getFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        return fragment;
+        return fragmentManager.findFragmentByTag(tag); // 直接返回
     }
 
+    // 替换新的fragment，供外界调用（i对应左侧边栏按钮，比如i=2时替换为ManagementFragment）
+    public void replaceFragment(int i) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        switch (i) {
+            case 0:
+                fragmentTransaction.replace(R.id.fl_main_content, new ContentFragment());
+                fragmentTransaction.commit(); // 提交事务
+                break;
+            case 1:
+                // ...
+                break;
+            case 2:
+                fragmentTransaction.replace(R.id.fl_main_content, new ManagementFragment());
+                fragmentTransaction.commit(); // 提交事务
+                break;
+            case 3:
+                // ...
+                break;
+            default:
+                // ...
+                break;
+        }
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -87,6 +112,7 @@ public class HomeActivity extends SlidingFragmentActivity {
      * 双击退出函数
      */
     private static Boolean isExit = false;
+
     private void exitBy2Click() {
         Timer tExit = null;
         if (isExit == false) {
@@ -104,5 +130,4 @@ public class HomeActivity extends SlidingFragmentActivity {
             System.exit(0);
         }
     }
-
 }

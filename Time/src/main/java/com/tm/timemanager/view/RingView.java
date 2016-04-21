@@ -22,6 +22,7 @@ import com.tm.timemanager.application.Application;
 public class RingView extends View{
 
 
+    int usage_time;
     int i ;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float mRotate;
@@ -30,12 +31,18 @@ public class RingView extends View{
 
     public RingView(Context context) {
         super(context);
+
+
         initview(context);
     }
 
     public RingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initview(context);
+    }
+
+    public void setUsage_time(int usage_time) {
+        this.usage_time = usage_time;
     }
 
     private void initview(Context context) {
@@ -85,6 +92,6 @@ public class RingView extends View{
             mRotate = 0;
         }
         invalidate();
-        getArc(canvas,x,y,i/2-80,0,360,paint);
+        getArc(canvas,x,y,i/2-80,360,360-usage_time/86400*360,paint);
     }
 }
