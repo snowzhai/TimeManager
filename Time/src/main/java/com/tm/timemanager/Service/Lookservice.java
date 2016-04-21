@@ -3,6 +3,7 @@ package com.tm.timemanager.Service;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -50,8 +51,19 @@ public class Lookservice extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ams = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        boolean isRegisterReceiver = false;
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if (!isRegisterReceiver) {
+            isRegisterReceiver = true;
+            InfoReceive infoReceive = new InfoReceive();
+            IntentFilter filter = new IntentFilter();//过滤器
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
+            registerReceiver(infoReceive, filter);
+        }
         //得到数据库的操作助手
         dao = new DBOpenHelperdao(getApplication());
         new Thread(new Runnable() {
