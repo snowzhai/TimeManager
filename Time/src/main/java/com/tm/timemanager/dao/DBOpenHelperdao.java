@@ -24,6 +24,9 @@ public class DBOpenHelperdao {
     private final SQLiteDatabase db;
     private ByteArrayOutputStream baos;
     private Bitmap bitmap;
+    private byte[] bytesicon;
+    private Bitmap icon;
+    private long everytime;
 
     public DBOpenHelperdao(Context context) {
         helper = new MyDBOpenHelper(context, null, null, 1);
@@ -61,11 +64,12 @@ public class DBOpenHelperdao {
         return ret;
     }
     //插入 加锁 解锁 事件
-    public long insertappevent(String date,long starttime,int lock){
+    public long insertappevent(String date,long starttime,int lock,int type){
         ContentValues cv = new ContentValues();
         cv.put("date", date);        //包名
         cv.put("starttime", starttime);          //app名
         cv.put("lock", lock);         //运行时间
+        cv.put("type", type);         //运行时间
         long ret = db.insert("appevent", null, cv);//blacknumber为表的名称
         return ret;
     }
@@ -118,8 +122,19 @@ public class DBOpenHelperdao {
     }
     //获得某一天的解锁事件
     public Cursor getappevent(String date) {
-        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"';", null);
+        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"'and type=0 ;", null);
         return cursor;
+    }
+    //获得某一天的解锁时间的总长度
+    public long  getappeventtotalday(String date) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"'and type=1;", null);
+        long totaltime=0;
+        while (cursor.moveToNext()){
+            everytime = cursor.getLong(cursor.getColumnIndex("starttime"));
+//            Log.i("啊哈哈",everytime+"--"+totaltime);
+            totaltime=totaltime+everytime;
+        }
+        return totaltime;
     }
     //判断apptotal中有没有这个应用
     public Cursor getapptotalhava(String packname) {
@@ -148,7 +163,15 @@ public class DBOpenHelperdao {
         }
         return baos.toByteArray();
     }
-
+    //传入一个包名 得到相应的图片
+    public Bitmap getbyteimage(String packname){
+        Cursor cursor = db.rawQuery("select * from apptotal where packname='"+packname+"' ;", null);
+        while (cursor.moveToNext()){
+            bytesicon = cursor.getBlob(cursor.getColumnIndex("icon"));
+        }
+        icon = getimagefrom(bytesicon);
+        return icon;
+    }
     //从数据库中将图片区出来
     public Bitmap getimagefrom(byte[] icon) {
         bitmap = BitmapFactory.decodeByteArray(icon, 0, icon.length);

@@ -21,20 +21,32 @@ public class InfoReceive extends BroadcastReceiver {
     private DateFormat dateFormatday;
     private String yearmouthday;
     private long time;
+    private long starttime;
+    private long endtime;
+    private long totaltime;
+    private String action;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         db = new DBOpenHelperdao(context);
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         time = new Date().getTime();
-        String action = intent.getAction();
+        action = intent.getAction();
         yearmouthday =dateFormatday.format(time);
         if (action.equals(Intent.ACTION_SCREEN_ON)) {
             Log.i("哈哈", "屏幕解锁广播...");
-            db.insertappevent(yearmouthday,time,1);
+            db.insertappevent(yearmouthday,time,1,0);
+            starttime=time;
         } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             Log.i("哈哈", "屏幕加锁广播...");
-            db.insertappevent(yearmouthday,time,0);
+            db.insertappevent(yearmouthday,time,0,0);
+            endtime=time;
+            totaltime=endtime-starttime;
+            if (starttime!=0){
+                db.insertappevent(yearmouthday,totaltime,0,1);
+
+            }
+
         }
     }
 }
