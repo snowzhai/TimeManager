@@ -124,10 +124,14 @@ public class Lookservice extends Service {
                                     Cursor getapptotal = dao.getapptotal();
                                     Cursor getappdaily = dao.getappdaily("20160421");
                                     Cursor getappdaily1 = dao.getappdaily();
+                                    Cursor getappevent = dao.getappevent();
+                                    Cursor getappevent1 = dao.getappevent("20160421");
+                                    int count3 = getappevent.getCount();
+                                    int count4 = getappevent1.getCount();
                                     int count2 = getappdaily1.getCount();
                                     int count1 = getappdaily.getCount();
                                     int count = getapptotal.getCount();
-                                    Log.i("哈哈",""+count+"---"+count1+"---"+count2);
+                                    Log.i("哈哈",count+"--"+count1+"--"+count2+"解锁所有-"+count3+"-每天-"+count4);
                                 }
                             }
                         }
