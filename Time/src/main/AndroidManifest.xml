@@ -29,7 +29,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activity.Splash"></activity>
+        <activity android:name=".Activity.SplashActivity">
+
+        </activity>
     </application>
 
 </manifest>

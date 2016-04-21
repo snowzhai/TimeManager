@@ -1,6 +1,7 @@
 package com.tm.timemanager.pager;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -9,11 +10,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -25,6 +22,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tm.timemanager.R;
+import com.tm.timemanager.bean.AppDailyUsage;
+import com.tm.timemanager.dao.DBOpenHelperdao;
 
 import java.util.ArrayList;
 
@@ -38,6 +37,10 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     private PieChart mChart;
 
     private Typeface tf;
+    private ArrayList<String> packNameList;
+    private ArrayList<AppDailyUsage> appDailyUsagesList;
+    int totalTime = 0;
+    int totalCount = 0;
 
     public PiePager(Activity activity) {
         super(activity);
@@ -87,7 +90,49 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         // add a selection listener
         mChart.setOnChartValueSelectedListener(this);
 
-        setData(3, 100);
+
+        appDailyUsagesList = new ArrayList<>();
+        packNameList = new ArrayList<>();
+        Cursor cursor = new DBOpenHelperdao(mActivity).getappdaily();
+        while (cursor.moveToNext()) {
+            String packname = cursor.getString(cursor.getColumnIndex("packname"));
+            if (!packNameList.contains(packname)) {
+                packNameList.add(packname);
+                AppDailyUsage appDailyUsage = new AppDailyUsage(packname);
+                int runtime = cursor.getInt(cursor.getColumnIndex("runtime"));
+                appDailyUsage.setRuntime(runtime);
+                int count = cursor.getInt(cursor.getColumnIndex("clickcount"));
+                appDailyUsage.setClickcount(count);
+
+                totalTime = totalTime + runtime;
+                totalCount = totalCount+count;
+                appDailyUsagesList.add(appDailyUsage);
+//                Log.i("appUsageList1", appDailyUsage.toString());
+            } else {
+                for (AppDailyUsage usage : appDailyUsagesList) {
+                    if (packname.equals(usage.getPackname())) {
+                        int runtime = cursor.getInt(cursor.getColumnIndex("runtime"));
+                        int count = cursor.getInt(cursor.getColumnIndex("clickcount"));
+                        int totalruntime = usage.getRuntime() + runtime;
+                        usage.setRuntime(totalruntime);
+                        int totalclick = usage.getClickcount() + count;
+                        usage.setClickcount(totalclick);
+                        totalTime = totalTime + runtime;
+                        totalCount = totalCount+count;
+//                        Log.i("appUsageList2",usage.toString());
+                    }
+
+                }
+            }
+
+        }
+
+//        for(int a = 0;a<packNameList.size();a++){
+//            Log.i("appUsageList",packNameList.get(a));
+//            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
+//        }
+
+        setData(packNameList.size(), totalTime);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -113,14 +158,43 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     }
 
 
-    private void setData(int count, float range) {
+    private void setData(int size, float range) {
 
-         String[] mParties = new String[] {
-                "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
-                "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-                "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-                "Party Y", "Party Z"
-        };
+// id integer primary key autoincrement,
+// date varchar(10),
+// packname varchar(40),
+// appname varchar(20),
+// starttime long,
+// runtime int,
+// clickcount int
+//        public Cursor getappdaily() {
+            //所有数据的结果游标集
+//            Cursor cursor = db.rawQuery("select * from appdaily;", null);
+//        while (cursor.moveToNext()) {
+//            int id = cursor.getInt(0);
+//            String date = cursor.getString(1);
+//            String packname = cursor.getString(2);
+//            String appname = cursor.getString(3);
+//            long starttime = cursor.getLong(4);
+//            int runtime = cursor.getInt(5);
+//            int clickcount = cursor.getInt(6);
+//        }
+//            return cursor;
+//        }
+
+
+//        String[] mParties = new String[] {
+//                "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+//                "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+//                "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+//                "Party Y", "Party Z"
+//        };
+
+        String[] mParties = new String[size];
+        for(int i =0;i<size;i++){
+            mParties[i] = packNameList.get(i);
+        }
+
 
         float mult = range;
 
@@ -129,13 +203,13 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
-        for (int i = 0; i < count; i++) {
-            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
+        for (int i = 0; i < size; i++) {
+            yVals1.add(new Entry((float) (appDailyUsagesList.get(i).getRuntime()/range) , i));
         }
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < size; i++)
             xVals.add(mParties[i % mParties.length]);
 
         PieDataSet dataSet = new PieDataSet(yVals1, null);
@@ -194,5 +268,6 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
     }
+
 
 }

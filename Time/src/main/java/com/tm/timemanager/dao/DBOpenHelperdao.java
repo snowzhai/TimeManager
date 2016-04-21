@@ -65,14 +65,15 @@ public class DBOpenHelperdao {
     public Cursor getappdaily() {
         //所有数据的结果游标集
         Cursor cursor = db.rawQuery("select * from appdaily;", null);
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String date = cursor.getString(1);
-            String packname = cursor.getString(2);
-            String appname = cursor.getString(3);
-            long starttime = cursor.getLong(4);
-            int clickcount = cursor.getInt(5);
-        }
+//        while (cursor.moveToNext()) {
+//            int id = cursor.getInt(0);
+//            String date = cursor.getString(1);
+//            String packname = cursor.getString(2);
+//            String appname = cursor.getString(3);
+//            long starttime = cursor.getLong(4);
+//            int runtime = cursor.getInt(5);
+//            int clickcount = cursor.getInt(6);
+//        }
         return cursor;
     }
     //判断总的app信息中有没有这个应用
