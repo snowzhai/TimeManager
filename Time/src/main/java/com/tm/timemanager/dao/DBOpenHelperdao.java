@@ -134,6 +134,7 @@ public class DBOpenHelperdao {
         String update = "update apptotal set totaltime=totaltime+" + runningtime + " , totalcount=totalcount+" + totalcount + " where appname = '" + appname + "' ; ";
         Log.i("哈哈", appname);
         db.execSQL(update);
+//        db.execSQL(update1);
     }
     //将图片转化成字节数组存到数据库中
     public byte[] Icontobyte(Drawable icon) {

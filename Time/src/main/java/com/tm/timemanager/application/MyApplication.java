@@ -1,5 +1,6 @@
 package com.tm.timemanager.application;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.WindowManager;
@@ -7,7 +8,7 @@ import android.view.WindowManager;
 /**
  * Created by CHENQIAO on 2016/4/19.
  */
-public class Application extends android.app.Application {
+public class MyApplication extends Application {
 
     public static SharedPreferences config;
 

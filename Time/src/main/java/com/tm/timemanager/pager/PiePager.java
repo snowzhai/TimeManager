@@ -127,10 +127,10 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
 
         }
 
-//        for(int a = 0;a<packNameList.size();a++){
-//            Log.i("appUsageList",packNameList.get(a));
-//            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
-//        }
+        for(int a = 0;a<packNameList.size();a++){
+            Log.i("appUsageList",packNameList.get(a));
+            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
+        }
 
         setData(packNameList.size(), totalTime);
 

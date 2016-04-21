@@ -13,12 +13,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
-import com.tm.timemanager.application.Application;
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.bean.AppInfo;
 import com.tm.timemanager.bean.AppInfos;
 
@@ -170,13 +169,13 @@ public class ManagementFragment extends BaseFragment {
     // 弹出选择对话框
     private void showChooseDialog() {
         // ————————
-        final SharedPreferences.Editor editor = Application.config.edit();
+        final SharedPreferences.Editor editor = MyApplication.config.edit();
         final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         // 设置图标和标题
         builder.setIcon(R.drawable.management); // 图标
         builder.setTitle("计时类型"); // 标题
         // 获取timing_style
-        int style = Application.config.getInt("timing_style", 0);
+        int style = MyApplication.config.getInt("timing_style", 0);
 
         View dialog_view = View.inflate(mActivity, R.layout.dialog_management, null);
         builder.setView(dialog_view);
