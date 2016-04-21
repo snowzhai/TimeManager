@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 
 import java.text.DateFormat;
@@ -40,7 +41,9 @@ public class Lookservice extends Service {
     private String appname;
     private DBOpenHelperdao dao;
     private SimpleDateFormat hourmin;
-    private List<ActivityManager.RunningServiceInfo> runningServices1;
+    private String timepackname;
+    private int gettime;
+
 
     @Nullable
     @Override
@@ -55,6 +58,10 @@ public class Lookservice extends Service {
         boolean isRegisterReceiver = false;
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        //为了给软件计时  得到SharedPreferences
+        timepackname = "com.example.administrator.newclient";
+        MyApplication.setapptime(timepackname,20);
 
         //注册广播接收者 用于接收加锁解锁的广播
         if (!isRegisterReceiver) {
@@ -159,11 +166,26 @@ public class Lookservice extends Service {
                     if (beforpackagename.equals(runpackagename)) {
                         runningtime = runningtime + 1;
                     }
+
+                    //给软件计时的逻辑
+                    gettime = MyApplication.gettime(timepackname);//得到给软件设置的时间
+                    if(-1!= gettime){
+                        MyApplication.setapptime(timepackname,gettime-1);
+                        if (gettime==0){
+                            MyApplication.setapptime(timepackname,-1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
+                            Log.i("我靠，你使用"+timepackname,"到时间了");
+                        }
+
+                    }
+
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+
+
                 }
             }
         }).start();
