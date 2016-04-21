@@ -40,6 +40,7 @@ public class Lookservice extends Service {
     private String appname;
     private DBOpenHelperdao dao;
     private SimpleDateFormat hourmin;
+    private List<ActivityManager.RunningServiceInfo> runningServices1;
 
     @Nullable
     @Override
@@ -55,6 +56,7 @@ public class Lookservice extends Service {
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+        //注册广播接收者 用于接收加锁解锁的广播
         if (!isRegisterReceiver) {
             isRegisterReceiver = true;
             InfoReceive infoReceive = new InfoReceive();
@@ -82,6 +84,13 @@ public class Lookservice extends Service {
                     packageManager = getApplication().getPackageManager();
                     //得到最近刚打开的应用
                     runningAppProcessInfo = runningServices.get(0);
+
+/*
+//                    List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();
+                    runningServices1 = ams.getRunningServices(1);
+                    String process = runningServices1.get(1).process;
+                    Log.i("啊哈哈",process);*/
+
                     //得到它的名字
                     runpackagename = runningAppProcessInfo.processName;
 //                    Log.i("哈哈",runpackagename+"--"+beforpackagename);

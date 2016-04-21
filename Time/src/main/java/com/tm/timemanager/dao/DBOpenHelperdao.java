@@ -24,6 +24,8 @@ public class DBOpenHelperdao {
     private final SQLiteDatabase db;
     private ByteArrayOutputStream baos;
     private Bitmap bitmap;
+    private byte[] bytesicon;
+    private Bitmap icon;
 
     public DBOpenHelperdao(Context context) {
         helper = new MyDBOpenHelper(context, null, null, 1);
@@ -148,7 +150,15 @@ public class DBOpenHelperdao {
         }
         return baos.toByteArray();
     }
-
+    //传入一个包名 得到相应的图片
+    public Bitmap getbyteimage(String packname){
+        Cursor cursor = db.rawQuery("select * from apptotal where packname='"+packname+"' ;", null);
+        while (cursor.moveToNext()){
+            bytesicon = cursor.getBlob(cursor.getColumnIndex("icon"));
+        }
+        icon = getimagefrom(bytesicon);
+        return icon;
+    }
     //从数据库中将图片区出来
     public Bitmap getimagefrom(byte[] icon) {
         bitmap = BitmapFactory.decodeByteArray(icon, 0, icon.length);
