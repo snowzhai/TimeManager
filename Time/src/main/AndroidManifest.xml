@@ -24,11 +24,11 @@
 
         <service android:name=".Service.Lookservice" />
 
-        <receiver android:name=".Service.InfoReceive">
+       <!-- <receiver android:name=".Service.InfoReceive">
             <intent-filter>
                 <action android:name="com.tm.timemanager.changeinfo" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <activity android:name=".Activity.SplashActivity">
 

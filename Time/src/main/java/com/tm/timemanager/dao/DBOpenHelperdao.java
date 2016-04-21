@@ -60,7 +60,15 @@ public class DBOpenHelperdao {
         //这里返回的是影响行数的行号 而不是影响的行数
         return ret;
     }
-
+    //插入 加锁 解锁 事件
+    public long insertappevent(String date,long starttime,int lock){
+        ContentValues cv = new ContentValues();
+        cv.put("date", date);        //包名
+        cv.put("starttime", starttime);          //app名
+        cv.put("lock", lock);         //运行时间
+        long ret = db.insert("appevent", null, cv);//blacknumber为表的名称
+        return ret;
+    }
     //获得appdaily所有数据
     public Cursor getappdaily() {
         //所有数据的结果游标集
@@ -103,9 +111,17 @@ public class DBOpenHelperdao {
         }*/
             return cursor;
         }
-
-        //判断apptotal中有没有这个应用
-
+    //获得所有的解锁事件
+    public Cursor getappevent() {
+        Cursor cursor = db.rawQuery("select * from appevent;", null);
+        return cursor;
+    }
+    //获得某一天的解锁事件
+    public Cursor getappevent(String date) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"';", null);
+        return cursor;
+    }
+    //判断apptotal中有没有这个应用
     public Cursor getapptotalhava(String packname) {
         String[] columns = {"packname"};
         String[] whereargus = {packname};

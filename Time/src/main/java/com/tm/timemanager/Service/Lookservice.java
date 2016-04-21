@@ -3,6 +3,7 @@ package com.tm.timemanager.Service;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -50,8 +51,19 @@ public class Lookservice extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         ams = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        boolean isRegisterReceiver = false;
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        if (!isRegisterReceiver) {
+            isRegisterReceiver = true;
+            InfoReceive infoReceive = new InfoReceive();
+            IntentFilter filter = new IntentFilter();//过滤器
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
+            registerReceiver(infoReceive, filter);
+        }
         //得到数据库的操作助手
         dao = new DBOpenHelperdao(getApplication());
         new Thread(new Runnable() {
@@ -112,10 +124,14 @@ public class Lookservice extends Service {
                                     Cursor getapptotal = dao.getapptotal();
                                     Cursor getappdaily = dao.getappdaily("20160421");
                                     Cursor getappdaily1 = dao.getappdaily();
+                                    Cursor getappevent = dao.getappevent();
+                                    Cursor getappevent1 = dao.getappevent("20160421");
+                                    int count3 = getappevent.getCount();
+                                    int count4 = getappevent1.getCount();
                                     int count2 = getappdaily1.getCount();
                                     int count1 = getappdaily.getCount();
                                     int count = getapptotal.getCount();
-                                    Log.i("哈哈",""+count+"---"+count1+"---"+count2);
+                                    Log.i("哈哈",count+"--"+count1+"--"+count2+"解锁所有-"+count3+"-每天-"+count4);
                                 }
                             }
                         }

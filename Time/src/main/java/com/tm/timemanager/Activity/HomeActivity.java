@@ -44,6 +44,7 @@ public class HomeActivity extends SlidingFragmentActivity {
         //开启收集数据的服务
         Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
+
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
