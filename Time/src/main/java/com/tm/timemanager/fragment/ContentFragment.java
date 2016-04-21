@@ -1,6 +1,7 @@
 package com.tm.timemanager.fragment;
 
 
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -29,6 +30,8 @@ public class ContentFragment extends BaseFragment {
     private ViewPager vp_main;
     private ArrayList<BasePager> pagers;
     private CirclePageIndicator cpi_main;
+    int mPosition;
+    private MyPagerAdapter myPagerAdapter;
 
     @Override
     public View initViews() {
@@ -57,6 +60,12 @@ public class ContentFragment extends BaseFragment {
         return view;
     }
 
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        Log.i("onActivityCreated","===========");
+//    }
 
     @Override
     public void initData() {
@@ -66,8 +75,8 @@ public class ContentFragment extends BaseFragment {
 
         pagers.add(new PiePager(mActivity));
         pagers.add(new HomePager(mActivity));
-
-        vp_main.setAdapter(new MyPagerAdapter());
+        myPagerAdapter = new MyPagerAdapter();
+        vp_main.setAdapter(myPagerAdapter);
         vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,6 +115,8 @@ public class ContentFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
 
+                 mPosition = position;
+
             }
 
             @Override
@@ -116,6 +127,13 @@ public class ContentFragment extends BaseFragment {
         cpi_main.onPageSelected(1);
 
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        myPagerAdapter.notifyDataSetChanged();
     }
 
     class MyPagerAdapter extends PagerAdapter {
@@ -156,5 +174,6 @@ public class ContentFragment extends BaseFragment {
             super.destroyItem(container, position, object);
             container.removeView(view);
         }
+
     }
 }

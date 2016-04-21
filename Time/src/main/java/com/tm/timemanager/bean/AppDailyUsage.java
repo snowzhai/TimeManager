@@ -8,13 +8,15 @@ public class AppDailyUsage {
     String appname;
     int runtime;
     String date;
+    long starttime;
     int clickcount;
 
-    public AppDailyUsage(String packname, String appname, int runtime, String date, int clickcount) {
+    public AppDailyUsage(String packname, String appname, int runtime, String date, long starttime, int clickcount) {
         this.packname = packname;
         this.appname = appname;
         this.runtime = runtime;
         this.date = date;
+        this.starttime = starttime;
         this.clickcount = clickcount;
     }
 

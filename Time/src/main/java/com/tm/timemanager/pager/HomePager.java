@@ -53,10 +53,10 @@ public class HomePager extends BasePager {
         tv_main_minute = (TextView) mView.findViewById(R.id.tv_main_minute);
         tv_main_m = (TextView) mView.findViewById(R.id.tv_main_m);
 
-        tv_main_hour.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/10);
-        tv_main_minute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/10);
-        tv_main_h.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/15);
-        tv_main_m.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/15);
+        tv_main_hour.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/12);
+        tv_main_minute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/12);
+        tv_main_h.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/18);
+        tv_main_m.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/18);
 
 
         ValueAnimator animator1 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_hour.getText().toString()));
