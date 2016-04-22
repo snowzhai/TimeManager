@@ -28,12 +28,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tm.timemanager.R;
+import com.tm.timemanager.Utils.DataUtil;
 import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
@@ -100,10 +98,6 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         mChart.setOnChartValueSelectedListener(this);
 
 
-        //获取当前时间，得到当天数据库cursor信息
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String date = sdf.format(new Date());
-        Log.i("当前时间", date);
 
             //          数据库字段
             // id integer primary key autoincrement,
@@ -123,9 +117,12 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
             //            this.starttime = starttime;
             //            this.clickcount = clickcount;
             //        }
+
+
+        String date = DataUtil.getDate();
         appDailyUsagesList = new ArrayList<>();
         packNameList = new ArrayList<>();
-        Cursor cursor = new DBOpenHelperdao(mActivity).getappdaily();
+        Cursor cursor = new DBOpenHelperdao(mActivity).getappdaily(date);
         while (cursor.moveToNext()) {
             String packname = cursor.getString(cursor.getColumnIndex("packname"));
 
@@ -162,10 +159,10 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
 
         }
 
-//        for(int a = 0;a<packNameList.size();a++){
-//            Log.i("appUsageList",packNameList.get(a));
-//            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
-//        }
+        for(int a = 0;a<packNameList.size();a++){
+            Log.i("appUsageList",packNameList.get(a));
+            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
+        }
 
         setData(packNameList.size(), totalTime);
 

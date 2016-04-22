@@ -3,13 +3,19 @@ package com.tm.timemanager.pager;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
+import com.tm.timemanager.Utils.DataUtil;
+import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.view.RingView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
@@ -88,5 +94,12 @@ public class HomePager extends BasePager {
         tv_main_h.setTypeface(tf);
         tv_main_minute.setTypeface(tf);
         tv_main_m.setTypeface(tf);
+
+
+        DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(mActivity);
+        long getappeventtotalday = dbOpenHelperdao.getappeventtotalday(DataUtil.getDate());
+
+        Log.i("getappeventtotalday",getappeventtotalday+"");
+
     }
 }
