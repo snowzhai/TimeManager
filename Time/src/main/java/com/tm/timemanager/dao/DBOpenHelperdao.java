@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.db.MyDBOpenHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -176,5 +177,9 @@ public class DBOpenHelperdao {
     public Bitmap getimagefrom(byte[] icon) {
         bitmap = BitmapFactory.decodeByteArray(icon, 0, icon.length);
         return bitmap;
+    }
+    //设置给软件计时的时间
+    public void setapptime(String packname,int time){
+        MyApplication.setapptime("com.tm.timemanager",20);
     }
 }

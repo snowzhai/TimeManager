@@ -41,7 +41,6 @@ public class Lookservice extends Service {
     private String appname;
     private DBOpenHelperdao dao;
     private SimpleDateFormat hourmin;
-    private String timepackname;
     private int gettime;
 
 
@@ -58,10 +57,7 @@ public class Lookservice extends Service {
         boolean isRegisterReceiver = false;
         dateFormatday = new SimpleDateFormat("yyyyMMdd");
         hourmin = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        //为了给软件计时  得到SharedPreferences
-        timepackname = "com.example.administrator.newclient";
-        MyApplication.setapptime(timepackname,20);
+        dao = new DBOpenHelperdao(getApplication());        //得到数据库的操作助手
 
         //注册广播接收者 用于接收加锁解锁的广播
         if (!isRegisterReceiver) {
@@ -73,8 +69,6 @@ public class Lookservice extends Service {
             Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
             registerReceiver(infoReceive, filter);
         }
-        //得到数据库的操作助手
-        dao = new DBOpenHelperdao(getApplication());
         new Thread(new Runnable() {
 
             private String pkgName;
@@ -179,13 +173,14 @@ public class Lookservice extends Service {
                         runningtime = runningtime + 1;
                     }
 
-                    //给软件计时的逻辑
-                    gettime = MyApplication.gettime(timepackname);//得到给软件设置的时间
+                    //给软件计时的逻辑  如果数据库中有这个当前包名的软件 就有时间的减少的逻辑
+                    gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                     if(-1!= gettime){
-                        MyApplication.setapptime(timepackname,gettime-1);
+                        MyApplication.setapptime(beforpackagename,gettime-1);
+                        Log.i("我靠，你使用"+beforpackagename,gettime+"");
                         if (gettime==0){
-                            MyApplication.setapptime(timepackname,-1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
-                            Log.i("我靠，你使用"+timepackname,"到时间了");
+                            MyApplication.setapptime(beforpackagename,-1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
+                            Log.i("我靠，你使用"+beforpackagename,"到时间了");
                         }
 
                     }
