@@ -70,6 +70,7 @@ public class Lookservice extends Service {
             Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
             registerReceiver(infoReceive, filter);
         }
+
         new Thread(new Runnable() {
 
             private String pkgName;
