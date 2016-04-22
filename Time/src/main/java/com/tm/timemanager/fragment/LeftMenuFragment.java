@@ -29,12 +29,13 @@ public class LeftMenuFragment extends BaseFragment {
     private ArrayList<Integer> iv_menuList;
     private LeftMenuAdapter adapter;
     private HomeActivity homeActivity;
+    private View mView;
 
     @Override
     public View initViews() {
-        View view = View.inflate(mActivity, R.layout.fragment_leftmenu, null);
-        lv_list = (ListView) view.findViewById(R.id.lv_menu_list);
-        return view;
+        mView = View.inflate(mActivity, R.layout.fragment_leftmenu, null);
+        lv_list = (ListView) mView.findViewById(R.id.lv_menu_list);
+        return mView;
     }
 
     @Override
@@ -66,6 +67,9 @@ public class LeftMenuFragment extends BaseFragment {
                 // i==position, l==id
                 adapter.notifyDataSetChanged(); // 适配器刷新（调用getView方法）
                 homeActivity.replaceFragment(i); // 替换为新的Fragment
+
+//                ContentFragment contentfragment = (ContentFragment) homeActivity.getFragment("contentfragment");
+//                contentfragment.onClick(mView);
 
                 // 获取屏幕宽高
                 int phoneWidth = Application.getPhoneWidth(mActivity);

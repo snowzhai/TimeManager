@@ -34,7 +34,7 @@
             android:id="@+id/is_user_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="系统应用"
+            android:text="xxx"
             android:textColor="#a0a0a0" />
     </LinearLayout>
 

@@ -2,31 +2,99 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:text="TimeManager"
+        android:textColor="#2DC8D5"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:layout_weight="1">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="测试中"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="计时类型"
+                android:textColor="#000"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/rg_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_first"
+                    style="@style/myRadioButton"
+                    android:gravity="center_vertical"
+                    android:text="正常" />
+
+                <RadioButton
+                    android:id="@+id/rb_second"
+                    style="@style/myRadioButton"
+                    android:text="目标" />
+
+                <RadioButton
+                    android:id="@+id/rb_third"
+                    style="@style/myRadioButton"
+                    android:text="忽略" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_picker_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="测试中"
-            android:textSize="20sp" />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <NumberPicker
+                android:id="@+id/target_picker1"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content">
+
+            </NumberPicker>
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="时" />
+
+            <NumberPicker
+                android:id="@+id/target_picker2"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content">
+
+            </NumberPicker>
+
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:text="分" />
+            <!--<include-->
+            <!--android:id="@+id/target_list_view"-->
+            <!--layout="@layout/list_view">-->
+
+            <!--</include>-->
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
