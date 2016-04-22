@@ -129,12 +129,18 @@ public class DBOpenHelperdao {
     public long  getappeventtotalday(String date) {
         Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"'and type=1;", null);
         long totaltime=0;
-        while (cursor.moveToNext()){
-            everytime = cursor.getLong(cursor.getColumnIndex("starttime"));
+
+            while (cursor.moveToNext()){
+                everytime = cursor.getLong(cursor.getColumnIndex("starttime"));
 //            Log.i("啊哈哈",everytime+"--"+totaltime);
-            totaltime=totaltime+everytime;
-        }
-        return totaltime;
+                totaltime=totaltime+everytime;
+            }
+
+
+    if (cursor.getCount()==0){
+        return 0;
+    }
+      return totaltime;
     }
     //判断apptotal中有没有这个应用
     public Cursor getapptotalhava(String packname) {

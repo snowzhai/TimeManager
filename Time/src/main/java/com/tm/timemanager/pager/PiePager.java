@@ -28,7 +28,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tm.timemanager.R;
-import com.tm.timemanager.Utils.DataUtil;
+import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 import java.util.ArrayList;
@@ -41,13 +41,12 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
 
     public View mView;
     private PieChart mChart;
-
     private Typeface tf;
     private ArrayList<String> packNameList;
     private ArrayList<AppDailyUsage> appDailyUsagesList;
     int totalTime = 0;
     int totalCount = 0;
-    private ListView lv_piepager_applist;
+
 
     public PiePager(Activity activity) {
         super(activity);
@@ -119,7 +118,7 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
             //        }
 
 
-        String date = DataUtil.getDate();
+        String date = DateUtil.getDate();
         appDailyUsagesList = new ArrayList<>();
         packNameList = new ArrayList<>();
         Cursor cursor = new DBOpenHelperdao(mActivity).getappdaily(date);
@@ -159,10 +158,10 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
 
         }
 
-        for(int a = 0;a<packNameList.size();a++){
-            Log.i("appUsageList",packNameList.get(a));
-            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
-        }
+//        for(int a = 0;a<packNameList.size();a++){
+//            Log.i("appUsageList",packNameList.get(a));
+//            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
+//        }
 
         setData(packNameList.size(), totalTime);
 
@@ -175,65 +174,9 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
-
-
-
-        setListData();
-
     }
 
-    private void setListData() {
-        lv_piepager_applist = (ListView) mView.findViewById(R.id.lv_piepager_applist);
-        lv_piepager_applist.setAdapter(new BaseAdapter() {
-            @Override
-            public int getCount() {
-                return appDailyUsagesList.size();
-            }
 
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-
-                View view = null;
-                ViewHolder viewHolder=null;
-                if (convertView == null){
-                    view = View.inflate(mActivity, R.layout.item_piepager_applist, null);
-                    viewHolder =     new ViewHolder();
-                    viewHolder.appicon = (ImageView) view.findViewById(R.id.iv_piepagerlist_icon);
-                    viewHolder.appname = (TextView) view.findViewById(R.id.tv_piepagerlist_appname);
-                    viewHolder.appusagetime = (TextView) view.findViewById(R.id.tv_piepagerlist_appusagetime);
-                    viewHolder.appusagecount = (TextView) view.findViewById(R.id.tv_piepagerlist_appusagecount);
-                    view.setTag(viewHolder);
-
-                }else {
-                    view = convertView;
-                    viewHolder = (ViewHolder) view.getTag();
-                }
-
-
-
-
-                return view;
-            }
-
-            class ViewHolder{
-                ImageView appicon;
-                TextView appname;
-                TextView appusagetime;
-                TextView appusagecount;
-            }
-        });
-
-    }
 
     //piechart中心显示内容
     private SpannableString generateCenterSpannableText() {

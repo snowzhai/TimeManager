@@ -18,6 +18,8 @@ import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 import com.tm.timemanager.fragment.ManagementFragment;
+import com.tm.timemanager.fragment.SettingFragment;
+import com.tm.timemanager.fragment.TrendFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,8 +50,8 @@ public class HomeActivity extends SlidingFragmentActivity {
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
-
         }*/
+
 
     }
 
@@ -69,7 +71,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 //        Fragment fragmentByTag = fragmentManager.findFragmentByTag();
     }
 
-    //通过tag获取主界面activity的fragment，方便后面开发调用
+    //通过tag获取主界面activity的fragment，方便后面调用
     public Fragment getFragment(String tag) {
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -85,14 +87,16 @@ public class HomeActivity extends SlidingFragmentActivity {
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 1:
-                // ...
+                fragmentTransaction.replace(R.id.fl_main_content, new TrendFragment());
+                fragmentTransaction.commit(); // 提交事务
                 break;
             case 2:
                 fragmentTransaction.replace(R.id.fl_main_content, new ManagementFragment());
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 3:
-                // ...
+                fragmentTransaction.replace(R.id.fl_main_content, new SettingFragment());
+                fragmentTransaction.commit(); // 提交事务
                 break;
             default:
                 // ...
@@ -129,5 +133,13 @@ public class HomeActivity extends SlidingFragmentActivity {
             finish();
             System.exit(0);
         }
+    }
+
+
+    //主界面从新获取焦点是重新加载
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initFragment();
     }
 }
