@@ -2,6 +2,7 @@ package com.tm.timemanager.Service;
 
 import android.app.ActivityManager;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
@@ -87,6 +88,9 @@ public class Lookservice extends Service {
                     //得到最近刚打开的应用
                     runningAppProcessInfo = runningServices.get(0);
 
+
+
+
 /*
 //                    List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();
                     List<ActivityManager.RunningServiceInfo> runningServices = ams.getRunningServices(1);
@@ -100,7 +104,7 @@ public class Lookservice extends Service {
                         }
                     }
 */
-                    pkgName = ams.getRunningTasks(1).get(0).topActivity.getPackageName();
+//                    pkgName = ams.getRunningTasks(1).get(0).topActivity.getPackageName();
 //                    Log.i("哈哈",pkgName);
 
                     //得到它的名字

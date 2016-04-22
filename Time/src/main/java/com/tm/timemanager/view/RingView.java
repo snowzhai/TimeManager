@@ -14,7 +14,8 @@ import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.tm.timemanager.application.Application;
+import com.tm.timemanager.application.MyApplication;
+
 
 /**
  * Created by CHENQIAO on 2016/4/19.
@@ -39,8 +40,8 @@ public class RingView extends View{
     }
 
     private void initview(Context context) {
-        int width = Application.getPhoneWidth(context);
-        int height = Application.getPhoneHeight(context);
+        int width = MyApplication.getPhoneWidth(context);
+        int height = MyApplication.getPhoneHeight(context);
         i = (height > width) ? width : height;
 
         setFocusable(true);
