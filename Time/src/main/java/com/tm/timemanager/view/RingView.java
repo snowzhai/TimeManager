@@ -16,13 +16,13 @@ import android.view.View;
 
 import com.tm.timemanager.application.MyApplication;
 
+
 /**
  * Created by CHENQIAO on 2016/4/19.
  */
 public class RingView extends View{
 
 
-    int usage_time;
     int i ;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float mRotate;
@@ -31,18 +31,12 @@ public class RingView extends View{
 
     public RingView(Context context) {
         super(context);
-
-
         initview(context);
     }
 
     public RingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initview(context);
-    }
-
-    public void setUsage_time(int usage_time) {
-        this.usage_time = usage_time;
     }
 
     private void initview(Context context) {

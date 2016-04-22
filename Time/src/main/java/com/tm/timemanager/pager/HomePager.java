@@ -10,8 +10,12 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
-import com.tm.timemanager.Utils.DateUtil;
+import com.tm.timemanager.Utils.DataUtil;
 import com.tm.timemanager.dao.DBOpenHelperdao;
+import com.tm.timemanager.view.RingView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
