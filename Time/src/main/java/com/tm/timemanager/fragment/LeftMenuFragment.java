@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
-import com.tm.timemanager.application.Application;
+import com.tm.timemanager.application.MyApplication;
 
 import java.util.ArrayList;
 
@@ -72,8 +72,8 @@ public class LeftMenuFragment extends BaseFragment {
 //                contentfragment.onClick(mView);
 
                 // 获取屏幕宽高
-                int phoneWidth = Application.getPhoneWidth(mActivity);
-                int phoneHeight = Application.getPhoneHeight(mActivity);
+                int phoneWidth = MyApplication.getPhoneWidth(mActivity);
+                int phoneHeight = MyApplication.getPhoneHeight(mActivity);
 
                 // 模拟点击事件
                 final MotionEvent event_down = MotionEvent.obtain(SystemClock.uptimeMillis(),
