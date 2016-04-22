@@ -3,12 +3,19 @@ package com.tm.timemanager.pager;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
+import com.tm.timemanager.Utils.DataUtil;
+import com.tm.timemanager.dao.DBOpenHelperdao;
+import com.tm.timemanager.view.RingView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
@@ -52,10 +59,10 @@ public class HomePager extends BasePager {
         tv_main_minute = (TextView) mView.findViewById(R.id.tv_main_minute);
         tv_main_m = (TextView) mView.findViewById(R.id.tv_main_m);
 
-        tv_main_hour.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/10);
-        tv_main_minute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/10);
-        tv_main_h.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/15);
-        tv_main_m.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/15);
+        tv_main_hour.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/12);
+        tv_main_minute.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/12);
+        tv_main_h.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/18);
+        tv_main_m.setTextSize(TypedValue.COMPLEX_UNIT_DIP,i/18);
 
 
         ValueAnimator animator1 = ValueAnimator.ofInt(0, Integer.parseInt(tv_main_hour.getText().toString()));
@@ -89,6 +96,10 @@ public class HomePager extends BasePager {
         tv_main_m.setTypeface(tf);
 
 
+        DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(mActivity);
+        long getappeventtotalday = dbOpenHelperdao.getappeventtotalday(DataUtil.getDate());
+
+        Log.i("getappeventtotalday",getappeventtotalday+"");
 
     }
 }

@@ -1,6 +1,7 @@
 package com.tm.timemanager.fragment;
 
 
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -23,12 +24,14 @@ import java.util.ArrayList;
 /**
  * Created by CHENQIAO on 2016/4/19.
  */
-public class ContentFragment extends BaseFragment implements View.OnClickListener {
+public class ContentFragment extends BaseFragment {
 
     private View view;
     private ViewPager vp_main;
     private ArrayList<BasePager> pagers;
     private CirclePageIndicator cpi_main;
+    int mPosition;
+    private MyPagerAdapter myPagerAdapter;
 
     @Override
     public View initViews() {
@@ -38,15 +41,31 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
 //        linearParams.height = 200;
 //        mlogin.setLayoutParams(linearParams);
 
+
         ImageButton ibn_menu = (ImageButton) view.findViewById(R.id.ibn_menu);
         cpi_main = (CirclePageIndicator) view.findViewById(R.id.cpi_main);
-        ibn_menu.setOnClickListener(this);
+        ibn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HomeActivity mainActivity = (HomeActivity)mActivity;
+                SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
+                slidingMenu.toggle();
+            }
+        });
 
         vp_main = (ViewPager) view.findViewById(R.id.vp_main);
         cpi_main = (CirclePageIndicator) view.findViewById(R.id.cpi_main);
 
         return view;
     }
+
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//        Log.i("onActivityCreated","===========");
+//    }
 
     @Override
     public void initData() {
@@ -56,8 +75,8 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
 
         pagers.add(new PiePager(mActivity));
         pagers.add(new HomePager(mActivity));
-
-        vp_main.setAdapter(new MyPagerAdapter());
+        myPagerAdapter = new MyPagerAdapter();
+        vp_main.setAdapter(myPagerAdapter);
         vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -90,11 +109,13 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
         cpi_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("cpi_main", position + "");
+
             }
 
             @Override
             public void onPageSelected(int position) {
+
+                 mPosition = position;
 
             }
 
@@ -108,12 +129,11 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
 
     }
 
-    @Override
-    public void onClick(View v) {
 
-        HomeActivity mainActivity = (HomeActivity) mActivity;
-        SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
-        slidingMenu.toggle();
+    @Override
+    public void onResume() {
+        super.onResume();
+        myPagerAdapter.notifyDataSetChanged();
     }
 
     class MyPagerAdapter extends PagerAdapter {
@@ -154,5 +174,6 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
             super.destroyItem(container, position, object);
             container.removeView(view);
         }
+
     }
 }

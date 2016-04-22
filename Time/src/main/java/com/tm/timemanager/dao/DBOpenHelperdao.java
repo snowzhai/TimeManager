@@ -10,13 +10,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.db.MyDBOpenHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * Created by snow on 2016/4/20.
+ * Created by Administrator on 2016/4/20.
  */
 public class DBOpenHelperdao {
 
@@ -24,6 +25,9 @@ public class DBOpenHelperdao {
     private final SQLiteDatabase db;
     private ByteArrayOutputStream baos;
     private Bitmap bitmap;
+    private byte[] bytesicon;
+    private Bitmap icon;
+    private long everytime;
 
     public DBOpenHelperdao(Context context) {
         helper = new MyDBOpenHelper(context, null, null, 1);
@@ -50,6 +54,7 @@ public class DBOpenHelperdao {
         //当不符合条件的时候返回-1
         ContentValues cv = new ContentValues();
         byte[] icontobyte = Icontobyte(icon);
+//        Log.i("哈哈图片", icontobyte.length + "");
         cv.put("packname", packname);        //包名
         cv.put("appname", appname);          //app名
         cv.put("totaltime", totaltime);         //运行时间
@@ -59,7 +64,16 @@ public class DBOpenHelperdao {
         //这里返回的是影响行数的行号 而不是影响的行数
         return ret;
     }
-
+    //插入 加锁 解锁 事件
+    public long insertappevent(String date,long starttime,int lock,int type){
+        ContentValues cv = new ContentValues();
+        cv.put("date", date);        //包名
+        cv.put("starttime", starttime);          //app名
+        cv.put("lock", lock);         //运行时间
+        cv.put("type", type);         //运行时间
+        long ret = db.insert("appevent", null, cv);//blacknumber为表的名称
+        return ret;
+    }
     //获得appdaily所有数据
     public Cursor getappdaily() {
         //所有数据的结果游标集
@@ -102,9 +116,28 @@ public class DBOpenHelperdao {
         }*/
             return cursor;
         }
-
-        //判断apptotal中有没有这个应用
-
+    //获得所有的解锁事件
+    public Cursor getappevent() {
+        Cursor cursor = db.rawQuery("select * from appevent;", null);
+        return cursor;
+    }
+    //获得某一天的解锁事件
+    public Cursor getappevent(String date) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"'and type=0 ;", null);
+        return cursor;
+    }
+    //获得某一天的解锁时间的总长度
+    public long  getappeventtotalday(String date) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='"+date+"'and type=1;", null);
+        long totaltime=0;
+        while (cursor.moveToNext()){
+            everytime = cursor.getLong(cursor.getColumnIndex("starttime"));
+//            Log.i("啊哈哈",everytime+"--"+totaltime);
+            totaltime=totaltime+everytime;
+        }
+        return totaltime;
+    }
+    //判断apptotal中有没有这个应用
     public Cursor getapptotalhava(String packname) {
         String[] columns = {"packname"};
         String[] whereargus = {packname};
@@ -117,8 +150,8 @@ public class DBOpenHelperdao {
         String update = "update apptotal set totaltime=totaltime+" + runningtime + " , totalcount=totalcount+" + totalcount + " where appname = '" + appname + "' ; ";
         Log.i("哈哈", appname);
         db.execSQL(update);
+//        db.execSQL(update1);
     }
-
     //将图片转化成字节数组存到数据库中
     public byte[] Icontobyte(Drawable icon) {
         try {
@@ -131,10 +164,22 @@ public class DBOpenHelperdao {
         }
         return baos.toByteArray();
     }
-
+    //传入一个包名 得到相应的图片
+    public Bitmap getbyteimage(String packname){
+        Cursor cursor = db.rawQuery("select * from apptotal where packname='"+packname+"' ;", null);
+        while (cursor.moveToNext()){
+            bytesicon = cursor.getBlob(cursor.getColumnIndex("icon"));
+        }
+        icon = getimagefrom(bytesicon);
+        return icon;
+    }
     //从数据库中将图片区出来
     public Bitmap getimagefrom(byte[] icon) {
         bitmap = BitmapFactory.decodeByteArray(icon, 0, icon.length);
         return bitmap;
+    }
+    //设置给软件计时的时间
+    public void setapptime(String packname,int time){
+        MyApplication.setapptime("com.tm.timemanager",20);
     }
 }

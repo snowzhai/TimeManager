@@ -14,7 +14,7 @@ import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.tm.timemanager.application.Application;
+import com.tm.timemanager.application.MyApplication;
 
 /**
  * Created by CHENQIAO on 2016/4/19.
@@ -22,6 +22,7 @@ import com.tm.timemanager.application.Application;
 public class RingView extends View{
 
 
+    int usage_time;
     int i ;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float mRotate;
@@ -30,6 +31,8 @@ public class RingView extends View{
 
     public RingView(Context context) {
         super(context);
+
+
         initview(context);
     }
 
@@ -38,9 +41,13 @@ public class RingView extends View{
         initview(context);
     }
 
+    public void setUsage_time(int usage_time) {
+        this.usage_time = usage_time;
+    }
+
     private void initview(Context context) {
-        int width = Application.getPhoneWidth(context);
-        int height = Application.getPhoneHeight(context);
+        int width = MyApplication.getPhoneWidth(context);
+        int height = MyApplication.getPhoneHeight(context);
         i = (height > width) ? width : height;
 
         setFocusable(true);

@@ -14,7 +14,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Service.Lookservice;
-import com.tm.timemanager.application.Application;
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 import com.tm.timemanager.fragment.ManagementFragment;
@@ -31,7 +31,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 
         super.onCreate(savedInstanceState);
 
-        int phoneWidth = Application.getPhoneWidth(this);
+        int phoneWidth = MyApplication.getPhoneWidth(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_home);
         SlidingMenu slidingMenu = getSlidingMenu();
@@ -44,6 +44,7 @@ public class HomeActivity extends SlidingFragmentActivity {
         //开启收集数据的服务
         Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
+
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);

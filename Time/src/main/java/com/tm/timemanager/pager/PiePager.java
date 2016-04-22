@@ -1,6 +1,7 @@
 package com.tm.timemanager.pager;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
@@ -9,9 +10,11 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -25,7 +28,9 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tm.timemanager.R;
-
+import com.tm.timemanager.Utils.DataUtil;
+import com.tm.timemanager.bean.AppDailyUsage;
+import com.tm.timemanager.dao.DBOpenHelperdao;
 import java.util.ArrayList;
 
 /**
@@ -38,11 +43,16 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     private PieChart mChart;
 
     private Typeface tf;
+    private ArrayList<String> packNameList;
+    private ArrayList<AppDailyUsage> appDailyUsagesList;
+    int totalTime = 0;
+    int totalCount = 0;
+    private ListView lv_piepager_applist;
 
     public PiePager(Activity activity) {
         super(activity);
         initView();
-}
+    }
 
 
     public void initView() {
@@ -50,7 +60,7 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         mChart = (PieChart) mView.findViewById(R.id.chart1);
 
         int screenWidth = mActivity.getWindowManager().getDefaultDisplay().getWidth(); // 屏幕宽
-        int screenHeight =mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
+        int screenHeight = mActivity.getWindowManager().getDefaultDisplay().getHeight(); // 屏幕高
 
 
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mChart.getLayoutParams();
@@ -87,7 +97,74 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         // add a selection listener
         mChart.setOnChartValueSelectedListener(this);
 
-        setData(3, 100);
+
+
+            //          数据库字段
+            // id integer primary key autoincrement,
+            // date varchar(10),
+            // packname varchar(40),
+            // appname varchar(20),
+            // starttime long,
+            // runtime int,
+            // clickcount int
+
+            //          bean构造
+            //        public AppDailyUsage(String packname, String appname, int runtime, String date, long starttime, int clickcount) {
+            //            this.packname = packname;
+            //            this.appname = appname;
+            //            this.runtime = runtime;
+            //            this.date = date;
+            //            this.starttime = starttime;
+            //            this.clickcount = clickcount;
+            //        }
+
+
+        String date = DataUtil.getDate();
+        appDailyUsagesList = new ArrayList<>();
+        packNameList = new ArrayList<>();
+        Cursor cursor = new DBOpenHelperdao(mActivity).getappdaily(date);
+        while (cursor.moveToNext()) {
+            String packname = cursor.getString(cursor.getColumnIndex("packname"));
+
+            //将数据库按照packagename分类，运行时间相加
+            if (!packNameList.contains(packname)) {
+                packNameList.add(packname);
+
+                String appname = cursor.getString(cursor.getColumnIndex("appname"));
+                int runtime = cursor.getInt(cursor.getColumnIndex("runtime"));
+                int starttime = cursor.getInt(cursor.getColumnIndex("starttime"));
+                int clickcount = cursor.getInt(cursor.getColumnIndex("clickcount"));
+                AppDailyUsage appDailyUsage = new AppDailyUsage(packname, appname, runtime, date, starttime, clickcount);
+
+                totalTime = totalTime + runtime;
+                totalCount = totalCount + clickcount;
+                appDailyUsagesList.add(appDailyUsage);
+//                Log.i("appUsageList1", appDailyUsage.toString());
+            } else {
+                for (AppDailyUsage usage : appDailyUsagesList) {
+                    if (packname.equals(usage.getPackname())) {
+                        int runtime = cursor.getInt(cursor.getColumnIndex("runtime"));
+                        int count = cursor.getInt(cursor.getColumnIndex("clickcount"));
+                        int totalruntime = usage.getRuntime() + runtime;
+                        usage.setRuntime(totalruntime);
+                        int totalclick = usage.getClickcount() + count;
+                        usage.setClickcount(totalclick);
+                        totalTime = totalTime + runtime;
+                        totalCount = totalCount + count;
+//                        Log.i("appUsageList2",usage.toString());
+                    }
+
+                }
+            }
+
+        }
+
+        for(int a = 0;a<packNameList.size();a++){
+            Log.i("appUsageList",packNameList.get(a));
+            Log.i("appUsageList",appDailyUsagesList.get(a).toString());
+        }
+
+        setData(packNameList.size(), totalTime);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -98,8 +175,67 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
 
+
+
+
+        setListData();
+
     }
 
+    private void setListData() {
+        lv_piepager_applist = (ListView) mView.findViewById(R.id.lv_piepager_applist);
+        lv_piepager_applist.setAdapter(new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return appDailyUsagesList.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                View view = null;
+                ViewHolder viewHolder=null;
+                if (convertView == null){
+                    view = View.inflate(mActivity, R.layout.item_piepager_applist, null);
+                    viewHolder =     new ViewHolder();
+                    viewHolder.appicon = (ImageView) view.findViewById(R.id.iv_piepagerlist_icon);
+                    viewHolder.appname = (TextView) view.findViewById(R.id.tv_piepagerlist_appname);
+                    viewHolder.appusagetime = (TextView) view.findViewById(R.id.tv_piepagerlist_appusagetime);
+                    viewHolder.appusagecount = (TextView) view.findViewById(R.id.tv_piepagerlist_appusagecount);
+                    view.setTag(viewHolder);
+
+                }else {
+                    view = convertView;
+                    viewHolder = (ViewHolder) view.getTag();
+                }
+
+
+
+
+                return view;
+            }
+
+            class ViewHolder{
+                ImageView appicon;
+                TextView appname;
+                TextView appusagetime;
+                TextView appusagecount;
+            }
+        });
+
+    }
+
+    //piechart中心显示内容
     private SpannableString generateCenterSpannableText() {
 
         SpannableString s = new SpannableString("Today's APP Statistics\ndeveloped by Joe Chen");
@@ -113,14 +249,38 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     }
 
 
-    private void setData(int count, float range) {
+    //绑定piechart数据
+    private void setData(int size, float range) {
 
-         String[] mParties = new String[] {
-                "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
-                "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-                "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-                "Party Y", "Party Z"
-        };
+// id integer primary key autoincrement,
+// date varchar(10),
+// packname varchar(40),
+// appname varchar(20),
+// starttime long,
+// runtime int,
+// clickcount int
+//        public Cursor getappdaily() {
+        //所有数据的结果游标集
+//            Cursor cursor = db.rawQuery("select * from appdaily;", null);
+//        while (cursor.moveToNext()) {
+//            int id = cursor.getInt(0);
+//            String date = cursor.getString(1);
+//            String packname = cursor.getString(2);
+//            String appname = cursor.getString(3);
+//            long starttime = cursor.getLong(4);
+//            int runtime = cursor.getInt(5);
+//            int clickcount = cursor.getInt(6);
+//        }
+//            return cursor;
+//        }
+
+
+        //piechart每个分块代表的名字
+        String[] mParties = new String[size];
+        for (int i = 0; i < size; i++) {
+            mParties[i] = appDailyUsagesList.get(i).getAppname();
+        }
+
 
         float mult = range;
 
@@ -129,13 +289,15 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         // IMPORTANT: In a PieChart, no values (Entry) should have the same
         // xIndex (even if from different DataSets), since no values can be
         // drawn above each other.
-        for (int i = 0; i < count; i++) {
-            yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
+
+        for (int i = 0; i < size; i++) {
+            //piechart每块所占比例
+            yVals1.add(new Entry(appDailyUsagesList.get(i).getRuntime() / range, i));
         }
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < size; i++)
             xVals.add(mParties[i % mParties.length]);
 
         PieDataSet dataSet = new PieDataSet(yVals1, null);
@@ -169,7 +331,7 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.GRAY);
         data.setValueTypeface(tf);
         mChart.setData(data);
 
@@ -194,5 +356,6 @@ public class PiePager extends BasePager implements OnChartValueSelectedListener 
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
     }
+
 
 }
