@@ -87,7 +87,8 @@ public class HomeActivity extends SlidingFragmentActivity {
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 1:
-                // ...
+                fragmentTransaction.replace(R.id.fl_main_content, new TrendFragment());
+                fragmentTransaction.commit(); // 提交事务
                 break;
             case 2:
                 fragmentTransaction.replace(R.id.fl_main_content, new ManagementFragment());

@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
-import com.tm.timemanager.Utils.DataUtil;
+import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.view.RingView;
 
