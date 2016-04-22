@@ -1,6 +1,6 @@
 package com.tm.timemanager.bean;
 
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 
 /**
  * Created by chenkui on 16/4/20.
@@ -8,15 +8,15 @@ import android.graphics.drawable.Drawable;
 // 这是一个JavaBean
 public class AppInfo {
 
-    private Drawable appIcon; // 应用图标
+    private Bitmap appIcon; // 应用图标
     private String appName; // 应用名称
-    private boolean isUserApp; // 是否为用户APP，否则为系统应用
+    private String packageName; // 应用包名
 
-    public Drawable getAppIcon() {
+    public Bitmap getAppIcon() {
         return appIcon;
     }
 
-    public void setAppIcon(Drawable appIcon) {
+    public void setAppIcon(Bitmap appIcon) {
         this.appIcon = appIcon;
     }
 
@@ -28,18 +28,18 @@ public class AppInfo {
         this.appName = appName;
     }
 
-    public boolean isUserApp() {
-        return isUserApp;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setUserApp(boolean userApp) {
-        isUserApp = userApp;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     @Override
     // 重写toString方法
     public String toString() {
 //        return super.toString();
-        return "AppInfo [appName=" + appName + ", isUserApp=" + isUserApp + "]";
+        return "AppInfo [appName=" + appName + ", packageName=" + packageName + "]";
     }
 }

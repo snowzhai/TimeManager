@@ -50,7 +50,6 @@ public class HomeActivity extends SlidingFragmentActivity {
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
 
         }*/
-
     }
 
     public void getimage(View view) {
