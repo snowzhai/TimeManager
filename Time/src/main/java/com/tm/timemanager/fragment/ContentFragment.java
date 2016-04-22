@@ -21,7 +21,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
-import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.pager.BasePager;
 import com.tm.timemanager.pager.HomePager;
