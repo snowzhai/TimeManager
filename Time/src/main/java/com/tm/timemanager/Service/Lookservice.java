@@ -184,7 +184,7 @@ public class Lookservice extends Service {
                         }
 
                     }
-
+                    MyApplication.unlocktime+=1;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {

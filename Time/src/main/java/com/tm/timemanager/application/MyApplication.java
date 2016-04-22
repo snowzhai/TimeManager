@@ -12,7 +12,7 @@ public class MyApplication extends Application {
     private static SharedPreferences sp;
     private static SharedPreferences.Editor setedit;
     public static SharedPreferences config;
-
+    public static int unlocktime;
 
     @Override
     public void onCreate() {

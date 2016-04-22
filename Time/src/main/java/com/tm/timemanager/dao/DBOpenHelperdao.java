@@ -133,7 +133,7 @@ public class DBOpenHelperdao {
         while (cursor.moveToNext()){
             everytime = cursor.getLong(cursor.getColumnIndex("starttime"));
 //            Log.i("啊哈哈",everytime+"--"+totaltime);
-            totaltime=totaltime+everytime;
+            totaltime=totaltime+everytime+MyApplication.unlocktime;
         }
         return totaltime;
     }

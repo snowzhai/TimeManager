@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 
 import java.text.DateFormat;
@@ -39,6 +40,7 @@ public class InfoReceive extends BroadcastReceiver {
             starttime=time;
         } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             Log.i("哈哈", "屏幕加锁广播...");
+            MyApplication.unlocktime=0;
             db.insertappevent(yearmouthday,time,0,0);
             endtime=time;
             totaltime=endtime-starttime;
