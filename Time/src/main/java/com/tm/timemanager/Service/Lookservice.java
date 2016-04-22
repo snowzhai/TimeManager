@@ -89,7 +89,11 @@ public class Lookservice extends Service {
                     runningAppProcessInfo = runningServices.get(0);
 
 
+                    ComponentName componentName = ams.getRunningTasks(1).get(0).topActivity;
 
+                    Log.d("哈哈", "package:"+componentName.getPackageName());
+
+                    Log.d("哈哈", "class:"+componentName.getClassName());
 
 /*
 //                    List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();

@@ -90,7 +90,7 @@ public class ContentFragment extends BaseFragment implements View.OnClickListene
         cpi_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("cpi_main", position + "");
+//                Log.i("cpi_main", position + "");
             }
 
             @Override
