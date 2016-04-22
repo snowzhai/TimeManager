@@ -180,6 +180,6 @@ public class DBOpenHelperdao {
     }
     //设置给软件计时的时间
     public void setapptime(String packname,int time){
-        MyApplication.setapptime("com.tm.timemanager",20);
+        MyApplication.setapptime(packname,time);
     }
 }
