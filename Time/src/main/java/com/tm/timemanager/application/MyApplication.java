@@ -11,7 +11,6 @@ import android.view.WindowManager;
 public class MyApplication extends Application {
     private static SharedPreferences sp;
     private static SharedPreferences.Editor setedit;
-    public static SharedPreferences config;
     public static int unlocktime;
 
     @Override
@@ -19,14 +18,6 @@ public class MyApplication extends Application {
         super.onCreate();
         sp = getSharedPreferences("appsettime", MODE_PRIVATE);
         setedit = sp.edit();
-        config = getSharedPreferences("config", MODE_PRIVATE);
-    }
-
-    // 保存配置参数
-    public static void setConfigValue(String key, String value) {
-        SharedPreferences.Editor editor = config.edit();
-        editor.putString(key, value);
-        editor.apply();
     }
 
     public static int getPhoneWidth(Context context) {
@@ -41,6 +32,10 @@ public class MyApplication extends Application {
         return height;
     }
 
+    // 计时类型：
+    // “正常”：settime默认为int值-1
+    // “目标”：settime传一个用户自定义的时间值
+    // “忽略”：settime传一个int值-2
 
     //zhai的数据库
     public static void setapptime(String packname, int settime) {
