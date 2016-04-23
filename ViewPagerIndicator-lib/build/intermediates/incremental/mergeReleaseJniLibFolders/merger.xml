@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="E:\workspace\AndroidStudioProjects\TimeManager\ViewPagerIndicator-lib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="E:\workspace\AndroidStudioProjects\TimeManager\ViewPagerIndicator-lib\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\Dowlond\TimeManager\ViewPagerIndicator-lib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="D:\Dowlond\TimeManager\ViewPagerIndicator-lib\src\release\jniLibs"/></dataSet></merger>
