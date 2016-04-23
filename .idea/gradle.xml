@@ -3,15 +3,15 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleHome" value="F:\软件\2.0 RC1 正式版\android-studio\gradle\gradle-2.10" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
             <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />
+            <option value="$PROJECT_DIR$/hellocharts-library" />
             <option value="$PROJECT_DIR$/slidingmenu-library" />
           </set>
         </option>
@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
             <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />
+            <option value="$PROJECT_DIR$/hellocharts-library" />
             <option value="$PROJECT_DIR$/slidingmenu-library" />
           </set>
         </option>
