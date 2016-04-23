@@ -26,4 +26,5 @@ dependencies {
     compile project(':slidingmenu-library')
     compile project(path: ':MPChartLib')
     compile project(':ViewPagerIndicator-lib')
+    compile 'eu.chainfire:libsuperuser:1.0.0.+'
 }
