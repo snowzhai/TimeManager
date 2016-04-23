@@ -161,7 +161,7 @@ public class Lookservice extends Service {
                     //给软件计时的逻辑  如果数据库中有这个当前包名的软件 就有时间的减少的逻辑
                     if (-1 != gettime) {
                         MyApplication.setapptime(beforpackagename, gettime - 1);
-                        Log.i("我靠，你使用" + beforpackagename, gettime + "");
+                        Log.i("你使用" + beforpackagename, gettime + "");
                         if (gettime == 0) {
                             MyApplication.setapptime(beforpackagename, -1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
                             try {
@@ -173,7 +173,7 @@ public class Lookservice extends Service {
                             toast(apptotalname);
                             manager.notify(1, notification);
 //                            Toast.makeText(getApplication(),)
-                            Log.i("我靠，你使用" + beforpackagename, "到时间了");
+                            Log.i("你使用" + beforpackagename, "到时间了");
                         }
                     }
                     MyApplication.unlocktime += 1;
