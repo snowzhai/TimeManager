@@ -294,17 +294,13 @@ public class ContentFragment extends BaseFragment {
         DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(mActivity);
 
         //手机使用次数
-        Cursor cursor = dbOpenHelperdao.getappdaily(DateUtil.getDate());
+        Cursor cursor = dbOpenHelperdao.getappevent(DateUtil.getDate());
         while(cursor.moveToNext()){
             phoneDailyUsageCount++;
         }
-        tv_main_phoneusagecount.setText(phoneDailyUsageCount+"");
+
+        tv_main_phoneusagecount.setText(phoneDailyUsageCount/2+"");
 
 
     }
-
-
-
-
-
 }
