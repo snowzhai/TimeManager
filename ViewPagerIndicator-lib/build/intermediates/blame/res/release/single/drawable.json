@@ -2,5 +2,9 @@
     {
         "merged": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",
         "source": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
+    },
+    {
+        "merged": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\release\\drawable\\vpi__tab_indicator.xml",
+        "source": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\drawable\\vpi__tab_indicator.xml"
     }
 ]

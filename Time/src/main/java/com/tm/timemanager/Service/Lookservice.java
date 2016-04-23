@@ -159,6 +159,7 @@ public class Lookservice extends Service {
                     }
 
                     //给软件计时的逻辑  如果数据库中有这个当前包名的软件 就有时间的减少的逻辑
+                    gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                     if (-1 != gettime) {
                         MyApplication.setapptime(beforpackagename, gettime - 1);
                         Log.i("我靠，你使用" + beforpackagename, gettime + "");
