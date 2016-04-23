@@ -299,8 +299,9 @@ public class ContentFragment extends BaseFragment {
         while(cursor.moveToNext()){
             phoneDailyUsageCount++;
         }
+//        phoneDailyUsageCount=cursor.getCount();
         Log.i("homeDailyUsageCount",phoneDailyUsageCount+"");
-        tv_main_phoneusagecount.setText(phoneDailyUsageCount+"");
+        tv_main_phoneusagecount.setText(phoneDailyUsageCount/2+"");
 
 
         int totalTime = 0;
