@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.dao.DBOpenHelperdao;
+import com.tm.timemanager.view.RingView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by CHENQIAO on 2016/4/20.
@@ -121,6 +124,4 @@ public class HomePager extends BasePager {
         tv_main_hour.setText(hour);
         tv_main_minute.setText(minutes);
     }
-
-
 }

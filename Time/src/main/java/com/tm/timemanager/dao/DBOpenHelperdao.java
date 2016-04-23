@@ -89,9 +89,6 @@ public class DBOpenHelperdao {
             long starttime = cursor.getLong(4);
             int clickcount = cursor.getInt(5);
         }*/
-        if (cursor.getCount()==0){
-//            return ;
-        }
         return cursor;
     }
 
@@ -195,5 +192,4 @@ public class DBOpenHelperdao {
     public void setapptime(String packname, int time) {
         MyApplication.setapptime(packname, time);
     }
-
 }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
+import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
@@ -349,7 +350,6 @@ public class ContentFragment extends BaseFragment {
         tv_main_appusagetime.setText(totalCount+"");
         Log.i("hometotalCount",totalCount+"");
     }
-
 
 
 }

@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:onClick="skip"
+            android:onClick="xxxxxx"
             android:padding="10dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -130,7 +130,6 @@
                 android:id="@+id/tv_main_phoneusagecount_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
     </LinearLayout>
 

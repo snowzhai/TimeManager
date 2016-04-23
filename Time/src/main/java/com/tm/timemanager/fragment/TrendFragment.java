@@ -181,6 +181,7 @@ public  class TrendFragment extends Fragment {
             chartBottom.setZoomType(ZoomType.HORIZONTAL);
 
 //             chartBottom.setOnClickListener(new View.OnClickListener() {
+//
 //             @Override
 //             public void onClick(View v) {
 //             SelectedValue sv = chartBottom.getSelectedValue();
