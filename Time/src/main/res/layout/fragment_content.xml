@@ -57,13 +57,12 @@
         android:id="@+id/cpi_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         app:radius="3dp"
         app:fillColor="#444"
-        app:pageColor="#fff"
+        app:pageColor="#2DC8D5"
         android:layout_below="@+id/vp_main"
-        android:layout_centerHorizontal="true"
-        android:background="#2DC8D5"/>
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
 
     <LinearLayout
