@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\D:\\Dowlond\\AndroidStudio2\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "outputFile": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,79 +11,7 @@
                     "endOffset": 999
                 },
                 "from": {
-                    "file": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\D:\\Dowlond\\AndroidStudio2\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 961,
-                        "endColumn": 42,
-                        "endOffset": 999
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 961,
-                    "endColumn": 42,
-                    "endOffset": 999
-                },
-                "from": {
-                    "file": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 961,
-                        "endColumn": 42,
-                        "endOffset": 999
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 961,
-                    "endColumn": 42,
-                    "endOffset": 999
-                },
-                "from": {
-                    "file": "D:\\Users\\chenkui\\AndroidStudioProjects\\MyGitHubApp\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 961,
-                        "endColumn": 42,
-                        "endOffset": 999
-                    }
-                }
-            }
-        ]
-    },
-    {
-        "outputFile": "D:\\Dowlond\\AndroidStudio2\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 3,
-                    "startColumn": 4,
-                    "startOffset": 961,
-                    "endColumn": 42,
-                    "endOffset": 999
-                },
-                "from": {
-                    "file": "D:\\Dowlond\\AndroidStudio2\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,

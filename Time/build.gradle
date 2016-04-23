@@ -26,4 +26,5 @@ dependencies {
     compile project(':slidingmenu-library')
     compile project(path: ':MPChartLib')
     compile project(':ViewPagerIndicator-lib')
+    compile project(':hellocharts-library')
 }
