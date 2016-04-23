@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "outputFile": "D:\\Dowlond\\TimeManager\\slidingmenu-library\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 999
                 },
                 "from": {
-                    "file": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "D:\\Dowlond\\TimeManager\\slidingmenu-library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,

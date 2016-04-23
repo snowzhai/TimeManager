@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2DC8D5"
+    android:orientation="vertical"
+    android:paddingRight="20dp" >
+
+
+
+    <View
+        android:id="@+id/view_sjz_1"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="100dp"
+        android:background="#A6A6A6" />
+
+    <TextView
+        android:id="@+id/tv_sjz_time"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view_sjz_1"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/image_sjz_icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_below="@id/view_sjz_1"
+        android:layout_marginLeft="94dp"
+        android:src="@drawable/timeline_green" />
+
+    <View
+        android:id="@+id/view_sjz_2"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/image_sjz_icon"
+        android:layout_marginLeft="100dp"
+        android:background="#A6A6A6" />
+
+
+    <TextView
+        android:singleLine="true"
+        android:id="@+id/tv_sjz_appname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_sjz_time"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@id/image_sjz_icon"
+        android:layout_toRightOf="@id/image_sjz_icon"
+         />
+    <!--
+        <ImageView
+            android:id="@+id/iv_sjz_picture_2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignTop="@id/iv_sjz_picture_1"
+            android:layout_marginLeft="33dp"
+            android:layout_marginStart="33dp"
+            android:layout_toEndOf="@id/iv_sjz_picture_1"
+            android:layout_toRightOf="@id/iv_sjz_picture_1"
+            android:src="@drawable/qq" />-->
+
+    <TextView
+        android:id="@+id/tv_sjz_long"
+        android:textColor="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/tv_sjz_time"
+        android:layout_alignBottom="@id/tv_sjz_time"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp" />
+</RelativeLayout>
