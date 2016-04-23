@@ -6,7 +6,7 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <application
         android:name=".application.MyApplication"
         android:allowBackup="true"
@@ -15,11 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".Service.Lookservice" />
@@ -30,9 +26,15 @@
              </intent-filter>
          </receiver>-->
 
-        <activity android:name=".Activity.Splash">
+        <activity android:name=".Activity.SplashActivity">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".Activity.SimpleAdapterActivity"/>
     </application>
 
 </manifest>

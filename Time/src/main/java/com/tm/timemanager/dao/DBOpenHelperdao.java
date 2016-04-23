@@ -89,6 +89,9 @@ public class DBOpenHelperdao {
             long starttime = cursor.getLong(4);
             int clickcount = cursor.getInt(5);
         }*/
+        if (cursor.getCount()==0){
+//            return ;
+        }
         return cursor;
     }
 
