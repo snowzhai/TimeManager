@@ -1,17 +1,24 @@
 package com.tm.timemanager.Service;
 
 import android.app.ActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.tm.timemanager.Activity.HomeActivity;
+import com.tm.timemanager.R;
 import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 
@@ -39,9 +46,13 @@ public class Lookservice extends Service {
     private Drawable icon;
     private ApplicationInfo applicationInfo;
     private String appname;
+    private String apptotalname;
+    private ApplicationInfo toasinfo;
     private DBOpenHelperdao dao;
     private SimpleDateFormat hourmin;
     private int gettime;
+    private Notification notification;
+    private NotificationManager manager;
 
     @Nullable
     @Override
@@ -59,15 +70,7 @@ public class Lookservice extends Service {
         dao = new DBOpenHelperdao(getApplication());        //得到数据库的操作助手
 
         //注册广播接收者 用于接收加锁解锁的广播
-        if (!isRegisterReceiver) {
-            isRegisterReceiver = true;
-            InfoReceive infoReceive = new InfoReceive();
-            IntentFilter filter = new IntentFilter();//过滤器
-            filter.addAction(Intent.ACTION_SCREEN_OFF);
-            filter.addAction(Intent.ACTION_SCREEN_ON);
-            Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
-            registerReceiver(infoReceive, filter);
-        }
+        registerbrocad(isRegisterReceiver);
 
         new Thread(new Runnable() {
 
@@ -95,13 +98,14 @@ public class Lookservice extends Service {
                         //得到这个名字的信息  从这里面拿icon appname
                         try {
                             applicationInfo = packageManager.getApplicationInfo(beforpackagename, 0);
+
                             icon = packageManager.getApplicationIcon(beforpackagename);
 
                         } catch (PackageManager.NameNotFoundException e) {
                             e.printStackTrace();
                         }
 
-
+                        gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                         appname = beforpackagename;                      //防止没有appname
                         appname = (String) applicationInfo.loadLabel(packageManager);
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
@@ -115,9 +119,9 @@ public class Lookservice extends Service {
                                 //查询数据库
                                 getapptotal = dao.getapptotalhava(beforpackagename);
                                 //如果总的数据库中没有的话就加入  判断是否为空的方法是 Cursor.getCount()这么一个简单的函数，如果是0，表示Cursor为空；如果非0，则表示Cursor不为空。
-                                if (getapptotal.getCount() == 0) {
+                                if (getapptotal.getCount() == 0&&gettime!=-2) {
                                     dao.insertapptotal(beforpackagename, appname, runningtime, 1, icon);
-                                } else {
+                                } else if (getapptotal.getCount()!=0&&gettime!=-2){
                                     Log.i("哈哈哈", appname + "--" + runningtime);
                                     //如果总的数据库中有的话  就将使用时间  使用次数 在原来的基础上添加到里面
                                     dao.updatetotal(appname, runningtime, 1);
@@ -155,15 +159,22 @@ public class Lookservice extends Service {
                     }
 
                     //给软件计时的逻辑  如果数据库中有这个当前包名的软件 就有时间的减少的逻辑
-                    gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                     if (-1 != gettime) {
                         MyApplication.setapptime(beforpackagename, gettime - 1);
                         Log.i("我靠，你使用" + beforpackagename, gettime + "");
                         if (gettime == 0) {
                             MyApplication.setapptime(beforpackagename, -1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
+                            try {
+                                toasinfo = packageManager.getApplicationInfo(runpackagename, 0);
+                                apptotalname = (String) toasinfo.loadLabel(packageManager);
+                            } catch (PackageManager.NameNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                            toast(apptotalname);
+                            manager.notify(1, notification);
+//                            Toast.makeText(getApplication(),)
                             Log.i("我靠，你使用" + beforpackagename, "到时间了");
                         }
-
                     }
                     MyApplication.unlocktime += 1;
                     try {
@@ -178,6 +189,31 @@ public class Lookservice extends Service {
         }).start();
         return super.onStartCommand(intent, flags, startId);
     }
+    //注册广播接收者
+    private void registerbrocad(boolean isRegisterReceiver) {
+        if (!isRegisterReceiver) {
+            isRegisterReceiver = true;
+            InfoReceive infoReceive = new InfoReceive();
+            IntentFilter filter = new IntentFilter();//过滤器
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            Log.i("哈哈", "注册屏幕解锁、加锁广播接收者...");
+            registerReceiver(infoReceive, filter);
+        }
+    }
+    public void toast(String appname){
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notification = new Notification(R.drawable.maan16, appname, System.currentTimeMillis());
+        Intent intent = new Intent(this, HomeActivity.class);
+        PendingIntent p1 = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        notification.setLatestEventInfo(this,appname,"使用时间到了！",p1);
+        long []a={0,1000,1000,1000};//控制手机振动
+        notification.vibrate=a;
 
-
+        //控制手机的LED灯闪烁
+        notification.ledARGB= Color.RED;
+        notification.ledOnMS=1000;
+        notification.ledOffMS=1000;
+        notification.flags=Notification.FLAG_SHOW_LIGHTS;
+    }
 }
