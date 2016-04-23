@@ -142,4 +142,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         super.onResume();
         initFragment();
     }
+    public void skip(View view){
+
+        startActivity(new Intent(HomeActivity.this,SimpleAdapterActivity.class));
+
+    }
 }
