@@ -3,19 +3,28 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Service.Lookservice;
+import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.application.MyApplication;
+import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 import com.tm.timemanager.fragment.ManagementFragment;
@@ -28,11 +37,19 @@ import java.util.TimerTask;
 public class HomeActivity extends SlidingFragmentActivity {
 
     private FragmentManager fragmentManager;
+    private boolean isChecked;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        isChecked = MyApplication.gettime("isChecked", false);
+        if (isChecked) {
+        }
+            initTzl();//创建通知栏
+
 
         int phoneWidth = MyApplication.getPhoneWidth(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,16 +64,71 @@ public class HomeActivity extends SlidingFragmentActivity {
         //开启收集数据的服务
         Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
-        //
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        manager.cancel(1);
+
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
-            dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
+            dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);ooo
         }*/
 
+        //注册广播接受者
+        refreshreceiver receiver = new refreshreceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.tm.timemanager.refresh");
+        registerReceiver(receiver, filter);
 
     }
+
+
+    public void initTzl() {
+        String date = DateUtil.getDate();
+        int phoneDailyUsageCount = 0;
+
+        DBOpenHelperdao dbOpenHelperdao=new DBOpenHelperdao(this);
+
+
+        Cursor cursor = dbOpenHelperdao.getappevent(date);
+        while(cursor.moveToNext()){
+            phoneDailyUsageCount++;
+        }
+
+        long getappeventtotalday = dbOpenHelperdao.getappeventtotalday(date);
+        Cursor getappdaily = dbOpenHelperdao.getappdaily(date);
+        int todaycount = getappdaily.getCount();
+        Cursor getapptotal = dbOpenHelperdao.getapptotal();
+        int todayappc = getappdaily.getCount();
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//构建通知
+        Notification notification = new Notification();
+
+        notification.icon = android.R.drawable.stat_notify_call_mute;
+        notification.tickerText = "nice";
+//加载自定义布局
+        RemoteViews contentView = new RemoteViews(getPackageName(),R.layout.notification);
+//通知显示的布局
+        notification.contentView = contentView;
+//设置值
+        //remoteviews在RemoteViews这种调用方式中，你只能使用以下几种界面组件：Layout:FrameLayout, LinearLayout, RelativeLayout Component:AnalogClock, Button, Chronometer, ImageButton, ImageView, ProgressBar, TextView, ViewFlipper, ListView, GridView, StackView, AdapterViewFlipper
+
+
+        contentView.setTextViewText(R.id.tv_notification_time,getappeventtotalday/60000+"分钟");
+        contentView.setTextViewText(R.id.tv_notification_sypc, todaycount+"次");
+        contentView.setTextViewText(R.id.tv_notification_sygs, todayappc+"个");
+        contentView.setTextViewText(R.id.tv_notification_unlocks,phoneDailyUsageCount/2+ "次");
+
+
+
+//点击跳转
+        Intent intent = new Intent(this,HomeActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 100, intent, 0);
+//点击的事件
+        notification.contentIntent = contentIntent;
+//点击通知之后不消失
+        notification.flags = Notification.FLAG_NO_CLEAR;
+//发送通知
+        manager.notify(0, notification);
+    }
+
+
 
     public void getimage(View view) {
         startActivity(new Intent(this, MytestActivity.class));
@@ -149,5 +221,17 @@ public class HomeActivity extends SlidingFragmentActivity {
 
         startActivity(new Intent(HomeActivity.this,SimpleAdapterActivity.class));
 
+    }
+   public   class refreshreceiver extends BroadcastReceiver {
+       public refreshreceiver() {
+       }
+
+       @Override
+        public void onReceive(Context context, Intent intent) {
+//            Log.i("哈哈","接收到广播了");
+           if (isChecked){
+           }
+                initTzl();
+        }
     }
 }

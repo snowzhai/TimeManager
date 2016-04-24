@@ -142,6 +142,7 @@ public class Lookservice extends Service {
                                 }
                             }
                         }
+
                         starttime = new Date().getTime();               //开始的时间
                         yearmouthday = dateFormatday.format(starttime);//得到这个时间的日期
                         todayhours = String.valueOf(new Date().getHours());//得到这个时间的所属小时
@@ -178,6 +179,8 @@ public class Lookservice extends Service {
                         }
                     }
                     MyApplication.unlocktime += 1;
+                    //给通知栏刷新
+                    sendBroadcast(new Intent("com.tm.timemanager.refresh"));
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -217,4 +220,10 @@ public class Lookservice extends Service {
         notification.ledOffMS=1000;
         notification.flags=Notification.FLAG_SHOW_LIGHTS;
     }
+    //给通知栏刷新
+   /* public void sedbrocast(){
+        Intent intent = new Intent();
+        intent.setAction("com.tm.timemanager.refresh");
+        sendStickyBroadcast(intent);
+    }*/
 }

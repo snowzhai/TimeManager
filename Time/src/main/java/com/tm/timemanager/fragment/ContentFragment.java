@@ -2,17 +2,12 @@ package com.tm.timemanager.fragment;
 
 
 import android.database.Cursor;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,7 +19,6 @@ import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.Utils.FontUtils;
 import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
-import com.tm.timemanager.pager.BasePager;
 import com.tm.timemanager.pager.HomePager;
 import com.tm.timemanager.pager.PiePager;
 import com.tm.timemanager.pager.TotalPiepager;
@@ -294,7 +288,7 @@ public class ContentFragment extends BaseFragment {
         }
 //        phoneDailyUsageCount=cursor.getCount();
         Log.i("homeDailyUsageCount",phoneDailyUsageCount+"");
-        tv_main_phoneusagecount.setText(phoneDailyUsageCount/4+"");
+        tv_main_phoneusagecount.setText(phoneDailyUsageCount/2+"");
 
 
         int totalTime = 0;

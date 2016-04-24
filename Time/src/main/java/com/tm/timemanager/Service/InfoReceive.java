@@ -26,6 +26,7 @@ public class InfoReceive extends BroadcastReceiver {
     private long endtime;
     private long totaltime;
     private String action;
+    private Intent intent;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,6 +40,7 @@ public class InfoReceive extends BroadcastReceiver {
             Log.i("哈哈", "屏幕解锁广播...");
             db.insertappevent(yearmouthday,time,1,0);
             starttime=time;
+//            Lookservice.sedbrocast();
         } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             Log.i("哈哈", "屏幕加锁广播...");
             db.insertappevent(yearmouthday,time,0,0);
@@ -52,6 +54,7 @@ public class InfoReceive extends BroadcastReceiver {
         }
 
     }
+
 
 
 }
