@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -87,7 +88,8 @@ public class HomeActivity extends SlidingFragmentActivity {
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 1:
-                fragmentTransaction.replace(R.id.fl_main_content, new TrendFragment());
+                Fragment trendFragment = new TrendFragment();
+                fragmentTransaction.replace(R.id.fl_main_content, trendFragment);
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 2:
@@ -142,9 +144,11 @@ public class HomeActivity extends SlidingFragmentActivity {
         super.onResume();
         initFragment();
     }
-    public void skip(View view){
 
-        startActivity(new Intent(HomeActivity.this,SimpleAdapterActivity.class));
+
+    public void xxxxxx(View view){
+
+        Log.i("==============","===========");
 
     }
 }

@@ -35,12 +35,12 @@ public class InfoReceive extends BroadcastReceiver {
         action = intent.getAction();
         yearmouthday =dateFormatday.format(time);
         if (action.equals(Intent.ACTION_SCREEN_ON)) {
-            MyApplication.unlocktime=0;
             Log.i("哈哈", "屏幕解锁广播...");
             db.insertappevent(yearmouthday,time,1,0);
             starttime=time;
         } else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             Log.i("哈哈", "屏幕加锁广播...");
+            MyApplication.unlocktime=0;
             db.insertappevent(yearmouthday,time,0,0);
             endtime=time;
             totaltime=endtime-starttime;

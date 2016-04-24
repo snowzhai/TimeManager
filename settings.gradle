@@ -1,2 +1,2 @@
-include ':Time', ':slidingmenu-library', ':MPChartLib'
+include ':Time', ':slidingmenu-library', ':MPChartLib', ':hellocharts-library'
 include ':ViewPagerIndicator-lib'

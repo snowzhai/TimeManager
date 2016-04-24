@@ -89,8 +89,11 @@ public class Lookservice extends Service {
                     packageManager = getApplication().getPackageManager();
                     //得到最近刚打开的应用 最初的
                     runningAppProcessInfo = runningServices.get(0);
-                    runpackagename = runningAppProcessInfo.processName;
+
                     //得到它的名字
+                    runpackagename = runningAppProcessInfo.processName;
+//                    Log.i("哈哈",runpackagename+"--"+beforpackagename);
+
                     //如果正在运行的现在将要运行的不是同一个就进来  runningname正在运行   packagename马上要打开
                     if (!beforpackagename.equals(runpackagename) && !beforpackagename.equals("1")) {
 
@@ -105,7 +108,7 @@ public class Lookservice extends Service {
                             e.printStackTrace();
                         }
 
-
+                        gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                         appname = beforpackagename;                      //防止没有appname
                         appname = (String) applicationInfo.loadLabel(packageManager);
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
@@ -119,9 +122,9 @@ public class Lookservice extends Service {
                                 //查询数据库
                                 getapptotal = dao.getapptotalhava(beforpackagename);
                                 //如果总的数据库中没有的话就加入  判断是否为空的方法是 Cursor.getCount()这么一个简单的函数，如果是0，表示Cursor为空；如果非0，则表示Cursor不为空。
-                                if (getapptotal.getCount() == 0) {
+                                if (getapptotal.getCount() == 0&&gettime!=-2) {
                                     dao.insertapptotal(beforpackagename, appname, runningtime, 1, icon);
-                                } else {
+                                } else if (getapptotal.getCount()!=0&&gettime!=-2){
                                     Log.i("哈哈哈", appname + "--" + runningtime);
                                     //如果总的数据库中有的话  就将使用时间  使用次数 在原来的基础上添加到里面
                                     dao.updatetotal(appname, runningtime, 1);

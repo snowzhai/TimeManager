@@ -89,9 +89,6 @@ public class DBOpenHelperdao {
             long starttime = cursor.getLong(4);
             int clickcount = cursor.getInt(5);
         }*/
-        if (cursor.getCount()==0){
-//            return ;
-        }
         return cursor;
     }
 
@@ -145,7 +142,11 @@ public class DBOpenHelperdao {
         }
         return totaltime;
     }
-
+    public int getappeventtotalday(String date,String a) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='" + date + "'and type=1;", null);
+        int count = cursor.getCount();
+        return count;
+    }
     //判断apptotal中有没有这个应用
     public Cursor getapptotalhava(String packname) {
         String[] columns = {"packname"};

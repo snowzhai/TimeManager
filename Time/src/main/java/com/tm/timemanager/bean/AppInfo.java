@@ -11,7 +11,6 @@ public class AppInfo {
     private Bitmap appIcon; // 应用图标
     private String appName; // 应用名称
     private String packageName; // 应用包名
-    private int timing = -1; // 应用计时类型11
 
     public Bitmap getAppIcon() {
         return appIcon;
@@ -35,14 +34,6 @@ public class AppInfo {
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
-    }
-
-    public int getTiming() {
-        return timing;
-    }
-
-    public void setTiming(int timing) {
-        this.timing = timing;
     }
 
     @Override
