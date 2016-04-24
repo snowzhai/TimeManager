@@ -195,5 +195,4 @@ public class DBOpenHelperdao {
     public void setapptime(String packname, int time) {
         MyApplication.setapptime(packname, time);
     }
-
 }

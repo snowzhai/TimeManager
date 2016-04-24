@@ -105,7 +105,7 @@ public class Lookservice extends Service {
                             e.printStackTrace();
                         }
 
-                        gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
+
                         appname = beforpackagename;                      //防止没有appname
                         appname = (String) applicationInfo.loadLabel(packageManager);
 //                    Log.i("哈哈", packagename +"---"+appname +"----" + runningtime + "---" + starttime + "---" + yearmouthday + "---" + todayhours);
@@ -119,9 +119,9 @@ public class Lookservice extends Service {
                                 //查询数据库
                                 getapptotal = dao.getapptotalhava(beforpackagename);
                                 //如果总的数据库中没有的话就加入  判断是否为空的方法是 Cursor.getCount()这么一个简单的函数，如果是0，表示Cursor为空；如果非0，则表示Cursor不为空。
-                                if (getapptotal.getCount() == 0&&gettime!=-2) {
+                                if (getapptotal.getCount() == 0) {
                                     dao.insertapptotal(beforpackagename, appname, runningtime, 1, icon);
-                                } else if (getapptotal.getCount()!=0&&gettime!=-2){
+                                } else {
                                     Log.i("哈哈哈", appname + "--" + runningtime);
                                     //如果总的数据库中有的话  就将使用时间  使用次数 在原来的基础上添加到里面
                                     dao.updatetotal(appname, runningtime, 1);
