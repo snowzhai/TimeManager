@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_trend_titie"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#2DC8D5">
+        <TextView
+            android:id="@+id/tv_trend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Trend"
+            android:textColor="#fff"
+            android:textSize="25sp"/>
+        <ImageButton
+            android:padding="10dp"
+            android:id="@+id/ibn_trend_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:onClick="menu"
+            android:src="@drawable/left_menu"/>
+        <ImageButton
+            android:id="@+id/right"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/right_share"
+            android:layout_alignParentRight="true"
+            />
+
+    </RelativeLayout>
+
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:padding="10dp"
+        android:id="@+id/cv_trend_charttop"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </lecho.lib.hellocharts.view.LineChartView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@android:color/darker_gray" />
+
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:padding="10dp"
+        android:id="@+id/cv_trend_chartbottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </lecho.lib.hellocharts.view.ColumnChartView>
+
+    <TextView
+        android:layout_width="10dp"
+        android:layout_height="40dp" />
+</LinearLayout>
