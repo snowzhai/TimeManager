@@ -57,12 +57,13 @@
         android:id="@+id/cpi_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:radius="3dp"
         app:fillColor="#444"
-        app:pageColor="#2DC8D5"
+        app:pageColor="#fff"
         android:layout_below="@+id/vp_main"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#2DC8D5"/>
 </RelativeLayout>
 
     <LinearLayout
@@ -111,7 +112,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:onClick="xxxxxx"
+            android:onClick="skip"
             android:padding="10dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -130,6 +131,7 @@
                 android:id="@+id/tv_main_phoneusagecount_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
     </LinearLayout>
 
