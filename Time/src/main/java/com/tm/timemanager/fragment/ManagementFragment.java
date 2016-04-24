@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.bean.AppInfo;
 import com.tm.timemanager.bean.AppInfos;
 
@@ -78,7 +79,6 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
 
     @Override
     public void initData() {
-        Log.i("呵呵", "数据初始化");
         initMyData();
     }
 
@@ -96,6 +96,7 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
 
     // 初始化数据
     private void initMyData() {
+        Log.i("呵呵", "数据初始化");
         // 子线程负责耗时操作
         new Thread() {
 
@@ -115,6 +116,7 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
 
         @Override
         public int getCount() {
+            Log.i("呵呵", "记录应用的个数：" + allAppInfos.size());
             return allAppInfos.size();
         }
 
@@ -144,6 +146,7 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
                 // 通过资源id查找组件
                 holder.appIcon = (ImageView) v.findViewById(R.id.iv_app_icon);
                 holder.appName = (TextView) v.findViewById(R.id.tv_app_name);
+                holder.timing = (TextView) v.findViewById(R.id.timing_style);
                 v.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
@@ -152,6 +155,16 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
             // 获取数据并显示至对应组件
             holder.appIcon.setImageBitmap(info.getAppIcon());
             holder.appName.setText(info.getAppName());
+            int timing = info.getTiming(); // 计时类型
+            if (timing == -2) {
+                holder.timing.setText("计时类型：忽略");
+            } else if (timing >= 0) {
+                int hour = (timing / 60) / 60;
+                int minute = (timing / 60) % 60;
+                String time = "计时类型：目标（" + hour + ":" + minute + "）";
+                holder.timing.setText(time);
+            }
+
             final String appPackageName = info.getPackageName();
 
             // 设置点击侦听（点击操作）
@@ -171,13 +184,14 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
     private static class ViewHolder {
         ImageView appIcon;
         TextView appName;
+        TextView timing;
     }
 
     // ——————————————————————————
 
     // 弹出选择对话框
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void showChooseDialog(String appPackageName) {
+    private void showChooseDialog(final String appPackageName) {
 
         // "目标"滚动条ListView
 //        targetListView = (ListView) dialog_view.findViewById(R.id.target_list_view);
@@ -185,8 +199,15 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
         // 初始化时间滚动条
         initPicker(targetPicker1, targetPicker2);
 
-        // 对话框默认选择（根据本地数据库来决定）
-        rg_buttons.check(R.id.rb_first);
+        // 对话框默认选择（根据本地保存的数据来决定）
+        int timing = MyApplication.gettime(appPackageName);
+        if (timing == -1) {
+            rg_buttons.check(R.id.rb_first);
+        } else if (timing >= 0) {
+            rg_buttons.check(R.id.rb_second);
+        } else if (timing == -2) {
+            rg_buttons.check(R.id.rb_third);
+        }
         // 获得所有的RadioButton对象
         first = (RadioButton) dialog_view.findViewById(R.id.rb_first);
         second = (RadioButton) dialog_view.findViewById(R.id.rb_second);
@@ -221,7 +242,7 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
         // ————————
         final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         // 展示滚动条
-//        targetListView.setAdapter(tAdapter);
+//        targetListView.setAdapter(tAdapter);11
         // 设为对话框
         builder.setView(dialog_view);
 
@@ -242,11 +263,17 @@ public class ManagementFragment extends BaseFragment implements NumberPicker.OnV
                     int value2 = targetPicker2.getValue();
                     int targetValue = (value1 * 60 + value2) * 60;
                     Log.i("呵呵", value1 + ":" + value2);
+                    // 记录具体的timing值（单位：s）
+                    MyApplication.setapptime(appPackageName, targetValue);
                 } else if (first.isChecked()) {
-                    Log.i("呵呵", "计时类型：正常");
+                    Log.i("呵呵", appPackageName + "————计时类型：正常");
+                    MyApplication.setapptime(appPackageName, -1);
                 } else if (third.isChecked()) {
-                    Log.i("呵呵", "计时类型：忽略");
+                    Log.i("呵呵", appPackageName + "————计时类型：忽略");
+                    // 记录timing = -2
+                    MyApplication.setapptime(appPackageName, -2);
                 }
+                initMyData(); // 再次初始化数据
             }
         }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
 

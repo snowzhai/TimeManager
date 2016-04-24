@@ -1,18 +1,18 @@
 [
     {
-        "merged": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
-        "source": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__light_theme.xml"
-    },
-    {
         "merged": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__dark_theme.xml",
         "source": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__dark_theme.xml"
+    },
+    {
+        "merged": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
+        "source": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__light_theme.xml"
     },
     {
         "merged": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__dark_theme.xml",
         "source": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__dark_theme.xml"
     },
     {
-        "merged": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
-        "source": "E:\\workspace\\AndroidStudioProjects\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__light_theme.xml"
+        "merged": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\build\\intermediates\\res\\merged\\debug\\color\\vpi__light_theme.xml",
+        "source": "D:\\Dowlond\\TimeManager\\ViewPagerIndicator-lib\\src\\main\\res\\color\\vpi__light_theme.xml"
     }
 ]
