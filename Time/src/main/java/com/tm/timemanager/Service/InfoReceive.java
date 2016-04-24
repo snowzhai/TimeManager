@@ -50,5 +50,8 @@ public class InfoReceive extends BroadcastReceiver {
             }
 
         }
+
     }
+
+
 }

@@ -89,11 +89,8 @@ public class Lookservice extends Service {
                     packageManager = getApplication().getPackageManager();
                     //得到最近刚打开的应用 最初的
                     runningAppProcessInfo = runningServices.get(0);
-
-                    //得到它的名字
                     runpackagename = runningAppProcessInfo.processName;
-//                    Log.i("哈哈",runpackagename+"--"+beforpackagename);
-
+                    //得到它的名字
                     //如果正在运行的现在将要运行的不是同一个就进来  runningname正在运行   packagename马上要打开
                     if (!beforpackagename.equals(runpackagename) && !beforpackagename.equals("1")) {
 
@@ -207,7 +204,7 @@ public class Lookservice extends Service {
     }
     public void toast(String appname){
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notification = new Notification(R.drawable.maan16, appname, System.currentTimeMillis());
+        notification = new Notification(R.drawable.men16, appname, System.currentTimeMillis());
         Intent intent = new Intent(this, HomeActivity.class);
         PendingIntent p1 = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         notification.setLatestEventInfo(this,appname,"使用时间到了！",p1);
