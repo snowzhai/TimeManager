@@ -43,7 +43,7 @@ public class LeftMenuFragment extends BaseFragment {
         super.initData();
         tv_menuList = new ArrayList<>();
         tv_menuList.add("Home");
-        tv_menuList.add("Trend");
+        tv_menuList.add("Statistic");
         tv_menuList.add("Manage");
         tv_menuList.add("Setting");
 

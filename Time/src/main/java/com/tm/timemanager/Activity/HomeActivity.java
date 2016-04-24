@@ -3,9 +3,9 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -47,7 +47,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         //开启收集数据的服务
         Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
-
+        //
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(1);
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);
@@ -88,8 +90,7 @@ public class HomeActivity extends SlidingFragmentActivity {
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 1:
-                Fragment trendFragment = new TrendFragment();
-                fragmentTransaction.replace(R.id.fl_main_content, trendFragment);
+                fragmentTransaction.replace(R.id.fl_main_content, new TrendFragment());
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 2:
@@ -144,11 +145,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         super.onResume();
         initFragment();
     }
+    public void skip(View view){
 
-
-    public void xxxxxx(View view){
-
-        Log.i("==============","===========");
+        startActivity(new Intent(HomeActivity.this,SimpleAdapterActivity.class));
 
     }
 }
