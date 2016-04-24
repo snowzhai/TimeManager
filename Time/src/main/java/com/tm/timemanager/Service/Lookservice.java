@@ -89,12 +89,12 @@ public class Lookservice extends Service {
                     runningAppProcessInfo = runningServices.get(0);
 
 
-                    ComponentName componentName = ams.getRunningTasks(1).get(0).topActivity;
+                 /*   ComponentName componentName = ams.getRunningTasks(1).get(0).topActivity;
 
                     Log.d("哈哈", "package:"+componentName.getPackageName());
 
                     Log.d("哈哈", "class:"+componentName.getClassName());
-
+*/
 /*
 //                    List<ActivityManager.RunningServiceInfo> list = new ArrayList<ActivityManager.RunningServiceInfo>();
                     List<ActivityManager.RunningServiceInfo> runningServices = ams.getRunningServices(1);
@@ -185,10 +185,10 @@ public class Lookservice extends Service {
                     gettime = MyApplication.gettime(beforpackagename);//得到给软件设置的时间
                     if(-1!= gettime){
                         MyApplication.setapptime(beforpackagename,gettime-1);
-                        Log.i("我靠，你使用"+beforpackagename,gettime+"");
+                        Log.i("你使用"+beforpackagename,gettime+"");
                         if (gettime==0){
                             MyApplication.setapptime(beforpackagename,-1);//如果计时的时间为0 则证明计时完毕 让它计时的时间为-1
-                            Log.i("我靠，你使用"+beforpackagename,"到时间了");
+                            Log.i("你使用"+beforpackagename,"到时间了");
                         }
 
                     }

@@ -21,11 +21,13 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.tm.timemanager.Activity.HomeActivity;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
+import com.tm.timemanager.Utils.FontUtils;
 import com.tm.timemanager.bean.AppDailyUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.pager.BasePager;
 import com.tm.timemanager.pager.HomePager;
 import com.tm.timemanager.pager.PiePager;
+import com.tm.timemanager.pager.TotalPiepager;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class ContentFragment extends BaseFragment {
 
     private View view;
     private ViewPager vp_main;
-    private ArrayList<BasePager> pagers;
+    private ArrayList<View> pagers;
     private CirclePageIndicator cpi_main;
     int mPosition;
     private MyPagerAdapter myPagerAdapter;
@@ -85,8 +87,9 @@ public class ContentFragment extends BaseFragment {
         pagers = new ArrayList<>();
 
 
-        pagers.add(new PiePager(mActivity));
-        pagers.add(new HomePager(mActivity));
+        pagers.add(new PiePager(mActivity).mView);
+        pagers.add(new HomePager(mActivity).mView);
+        pagers.add(new TotalPiepager(mActivity).mView);
         myPagerAdapter = new MyPagerAdapter();
         vp_main.setAdapter(myPagerAdapter);
         vp_main.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -150,7 +153,6 @@ public class ContentFragment extends BaseFragment {
 
     class MyPagerAdapter extends PagerAdapter {
 
-        private View view;
 
         @Override
         public int getCount() {
@@ -165,26 +167,17 @@ public class ContentFragment extends BaseFragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            switch (position) {
-                case 0:
-                    PiePager piePager = (PiePager) pagers.get(position);
-                    container.addView(piePager.mView);
-                    view = piePager.mView;
-                    break;
-                case 1:
-                    HomePager homePager = (HomePager) pagers.get(position);
-                    container.addView(homePager.mView);
-                    view = homePager.mView;
-                    break;
-            }
 
-            return view;
-        }
+                    View view = pagers.get(position);
+                    container.addView(view);
+                    ContentFragment.this.view = view;
+                     return view;
+
+            }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            super.destroyItem(container, position, object);
-            container.removeView(view);
+            container.removeView(pagers.get(position));
         }
 
     }
@@ -301,7 +294,7 @@ public class ContentFragment extends BaseFragment {
         }
 //        phoneDailyUsageCount=cursor.getCount();
         Log.i("homeDailyUsageCount",phoneDailyUsageCount+"");
-        tv_main_phoneusagecount.setText(phoneDailyUsageCount/2+"");
+        tv_main_phoneusagecount.setText(phoneDailyUsageCount/4+"");
 
 
         int totalTime = 0;
@@ -346,6 +339,22 @@ public class ContentFragment extends BaseFragment {
                 }
             }
         }
+
+//         tv_main_appuagecount
+//         tv_main_appuagecount_
+//         tv_main_appusagetime
+//         tv_main_appusagetime_
+//         tv_main_phoneusagecount
+//         tv_main_phoneusagecount_
+
+        FontUtils.setFont(mActivity,tv_main_appuagecount,20);
+        FontUtils.setFont(mActivity,tv_main_appuagecount_,20);
+        FontUtils.setFont(mActivity,tv_main_appusagetime,20);
+        FontUtils.setFont(mActivity,tv_main_appusagetime_,20);
+        FontUtils.setFont(mActivity,tv_main_phoneusagecount,20);
+        FontUtils.setFont(mActivity,tv_main_phoneusagecount_,20);
+
+
         tv_main_appuagecount.setText(appDailyUsagesList.size()+"");
         Log.i("homeappDailyUsagesList",appDailyUsagesList.size()+"");
         tv_main_appusagetime.setText(totalCount+"");
