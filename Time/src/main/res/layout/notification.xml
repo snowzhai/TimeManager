@@ -6,7 +6,7 @@
 
     <TextView
         android:gravity="center"
-        android:textColor="#fff"
+        android:textColor="#0f0"
         android:id="@+id/tv_notification_time"
         android:layout_width="0dp"
         android:layout_weight="5"
@@ -22,12 +22,12 @@
         <TextView
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:id="@+id/tv_notification_sypc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,12 +45,12 @@
         <TextView
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:id="@+id/tv_notification_sygs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:textSize="15dp"
             android:text="使用个数"
             android:layout_width="wrap_content"
@@ -68,12 +68,12 @@
         <TextView
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:id="@+id/tv_notification_unlocks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:textColor="#fff"
+            android:textColor="#0f0"
             android:textSize="15dp"
             android:text="解锁次数"
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
     <ImageView
         android:paddingBottom="0dp"
         android:src="@drawable/lockup"
-        android:layout_width="0dp"
+        android:layout_width="20dp"
         android:layout_weight="1"
         android:layout_height="wrap_content" />
 

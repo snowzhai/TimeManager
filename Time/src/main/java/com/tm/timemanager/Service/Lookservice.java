@@ -207,7 +207,7 @@ public class Lookservice extends Service {
     }
     public void toast(String appname){
         manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notification = new Notification(R.drawable.men16, appname, System.currentTimeMillis());
+        notification = new Notification(R.drawable.man, appname, System.currentTimeMillis());
         Intent intent = new Intent(this, HomeActivity.class);
         PendingIntent p1 = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         notification.setLatestEventInfo(this,appname,"使用时间到了！",p1);

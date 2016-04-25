@@ -23,6 +23,7 @@ import com.tm.timemanager.application.MyApplication;
 public class RingView extends View{
 
 
+    float progress;
     int i ;
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private float mRotate;
@@ -86,6 +87,10 @@ public class RingView extends View{
             mRotate = 0;
         }
         invalidate();
-        getArc(canvas,x,y,i/2-80,0,360,paint);
+        getArc(canvas,x,y,i/2-80,0,progress,paint);
+    }
+
+    public void setProgress(float progress) {
+        this.progress = progress;
     }
 }

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -66,7 +65,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         //开启收集数据的服务
         Intent intent = new Intent(this, Lookservice.class);
         startService(intent);
-
+        //
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.cancel(1);
        /* DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(this);
         for (int i=0;i<10;i++){
             dbOpenHelperdao.insertBlackNumber("haha",1111,1111,i);ooo
@@ -164,7 +165,8 @@ public class HomeActivity extends SlidingFragmentActivity {
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 1:
-                fragmentTransaction.replace(R.id.fl_main_content, new TrendFragment());
+                Fragment trendFragment = new TrendFragment();
+                fragmentTransaction.replace(R.id.fl_main_content, trendFragment);
                 fragmentTransaction.commit(); // 提交事务
                 break;
             case 2:
@@ -233,12 +235,12 @@ public class HomeActivity extends SlidingFragmentActivity {
            isChecked = MyApplication.gettime("isChecked", true);
                initTzl();//创建通知栏
            if (isChecked) {
-               Log.i("哈哈","接收到广播了"+isChecked);
+//               Log.i("哈哈","接收到广播了"+isChecked);
                initTzl();//创建通知栏
 
            }
            if (isChecked) {
-               Log.i("哈哈","接收到广播了"+isChecked);
+//               Log.i("哈哈","接收到广播了"+isChecked);
 //               initTzl();//创建通知栏
                manager.cancelAll();
            }

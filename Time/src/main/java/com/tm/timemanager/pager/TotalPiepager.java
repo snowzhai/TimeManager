@@ -25,6 +25,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.bean.AppDailyUsage;
+import com.tm.timemanager.bean.AppTotalUsage;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 
 import java.util.ArrayList;
@@ -38,10 +39,9 @@ public class TotalPiepager extends BasePager implements OnChartValueSelectedList
     public View mView;
     private PieChart mChart;
     private Typeface tf;
-    private ArrayList<String> packNameList;
-    private ArrayList<AppDailyUsage> appTotalUsage;
+    private ArrayList<AppTotalUsage> appTotalUsage;
     int totalTime = 0;
-    int totalCount = 0;
+    private long totalruntime;
 
 
     public TotalPiepager(Activity activity) {
@@ -105,11 +105,17 @@ public class TotalPiepager extends BasePager implements OnChartValueSelectedList
         while (cursor.moveToNext()) {
 
             String packname = cursor.getString(cursor.getColumnIndex("packname"));
-
+            String appname = cursor.getString(cursor.getColumnIndex("appname"));
+            int totalcount = cursor.getInt(cursor.getColumnIndex("totalcount"));
+            long totaltime = cursor.getLong(cursor.getColumnIndex("totaltime"));
+            AppTotalUsage usage = new AppTotalUsage(packname, appname, totaltime, totalcount);
+            appTotalUsage.add(usage);
+            Log.i("appTotalUsage",usage.toString());
+            totalruntime = totaltime + usage.getTotaltime();
 
         }
 
-        setData(appTotalUsage.size(), totalTime);
+        setData(appTotalUsage.size(), totalruntime);
 
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         // mChart.spin(2000, 0, 360);
@@ -128,9 +134,9 @@ public class TotalPiepager extends BasePager implements OnChartValueSelectedList
     private SpannableString generateCenterSpannableText() {
 
         SpannableString s = new SpannableString("APP Total Statistics\ndeveloped by Joe Chen");
-        s.setSpan(new RelativeSizeSpan(1.7f), 0, 23, 0);
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 23, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 23, s.length() - 9, 0);
+        s.setSpan(new RelativeSizeSpan(1.7f), 0, 21, 0);
+        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 21, 0);
+        s.setSpan(new ForegroundColorSpan(Color.GRAY), 21, s.length() - 9, 0);
         s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 9, 0);
         s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 9, s.length(), 0);
         s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 9, s.length(), 0);
@@ -158,7 +164,7 @@ public class TotalPiepager extends BasePager implements OnChartValueSelectedList
 
         for (int i = 0; i < size; i++) {
             //piechart每块所占比例
-            yVals1.add(new Entry(appTotalUsage.get(i).getRuntime() / range, i));
+            yVals1.add(new Entry(appTotalUsage.get(i).getTotaltime() / range, i));
         }
 
         ArrayList<String> xVals = new ArrayList<String>();

@@ -356,4 +356,20 @@ public class ContentFragment extends BaseFragment {
     }
 
 
+    public String getTv_main_phoneusagecount() {
+        return tv_main_phoneusagecount.getText().toString();
+    }
+
+
+
+    public String getTv_main_appusagetime() {
+        return tv_main_appusagetime.getText().toString();
+    }
+
+
+    public String getTv_main_appuagecount() {
+        return tv_main_appuagecount.getText().toString();
+    }
+
+
 }
