@@ -127,10 +127,15 @@ public class DBOpenHelperdao {
 
     //获得某一天的解锁事件
     public Cursor getappevent(String date) {
-        Cursor cursor = db.rawQuery("select * from appevent where date='" + date + "'and type=0 ;", null);
+        Cursor cursor = db.rawQuery("select * from appevent where date='" + date + "'and type=1;", null);
         return cursor;
     }
 
+    public int getappevent(String date,String a) {
+        Cursor cursor = db.rawQuery("select * from appevent where date='" + date + "'and lock=1 ;", null);
+        int count = cursor.getCount();
+        return count;
+    }
     //获得某一天的解锁时间的总长度
     public long getappeventtotalday(String date) {
         Cursor cursor = db.rawQuery("select * from appevent where date='" + date + "'and type=1;", null);

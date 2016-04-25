@@ -55,4 +55,16 @@ public class MyApplication extends Application {
         int defauletime = sp.getInt(packname, -1);
         return defauletime;
     }
+    //为通知栏设置的检测是开还是关的逻辑
+    public static void setapptime(String packname, boolean a) {
+        //为软件计时 设计的SharedPreferences数据库  appsettime  文件为.xml文件
+//        Log.i("啊啊啊",packname+settime);
+        setedit.putBoolean(packname, a);       //将包名传入  放入设置的时间数据
+        setedit.commit();
+    }
+
+    public static boolean gettime(String packname,boolean a) {
+        boolean aBoolean = sp.getBoolean(packname, a);
+        return aBoolean;
+    }
 }
