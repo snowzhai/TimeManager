@@ -31,8 +31,8 @@ public class SimpleAdapterActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.activity_main, new String[]{"tv_sjz_time", "image_sjz_icon", "tv_sjz_appname", "tv_sjz_long"}, new int[]{R.id.tv_sjz_time, R.id.image_sjz_icon, R.id.tv_sjz_appname, R.id.tv_sjz_long});
-        setListAdapter(adapter);
+//        SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.activity_home, new String[]{"tv_sjz_time", "image_sjz_icon", "tv_sjz_appname", "tv_sjz_long"}, new int[]{R.id.tv_sjz_time, R.id.image_sjz_icon, R.id.tv_sjz_appname, R.id.tv_sjz_long});
+//        setListAdapter(adapter);
     }
 
     private List<Map<String, Object>> getData() {
@@ -70,12 +70,12 @@ public class SimpleAdapterActivity extends ListActivity {
             }
 
 
-            Map<String, Object> map = new HashMap<>();
-            map.put("tv_sjz_time", format);
-            map.put("image_sjz_icon", R.drawable.timeline_green);
-            map.put("tv_sjz_appname", name);
-            map.put("tv_sjz_long", runtime + "秒");
-            list.add(map);
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("tv_sjz_time", format);
+//            map.put("image_sjz_icon", R.drawable.timeline_green);
+//            map.put("tv_sjz_appname", name);
+//            map.put("tv_sjz_long", runtime + "秒");
+//            list.add(map);
 
         }
 

@@ -57,19 +57,20 @@
         android:layout_weight="0.7"/>
 </LinearLayout>
 
-<!--<com.tm.timemanager.view.RingView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"/>-->
+<com.tm.timemanager.view.RingView
+    android:id="@+id/ringview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
-    <com.tm.timemanager.view.RoundProgressBar
-        android:id="@+id/roundProgressBar"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android_custom:roundColor="#C6E2FF"
-        android_custom:roundWidth="10dip"
-        android_custom:roundProgressColor="#CD3333"
-        android_custom:textIsDisplayable="false" />
+    <!--<com.tm.timemanager.view.RoundProgressBar-->
+        <!--android:id="@+id/roundProgressBar"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="300dp"-->
+        <!--android_custom:roundColor="#C6E2FF"-->
+        <!--android_custom:roundWidth="10dip"-->
+        <!--android_custom:roundProgressColor="#CD3333"-->
+        <!--android_custom:textIsDisplayable="false" />-->
 
 
 </FrameLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.GuideActivity">
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_guide_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <!--invisible要占位，gone不占位-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始体验"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="45dp"
+        android:id="@+id/bt_guide_enter"
+        android:onClick="enterHome"
+        android:textColor="#2DC8D5"
+        android:background="@drawable/bt_guide_bg"
+        />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp">
+        <LinearLayout android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/ll_guide_indicator">
+        </LinearLayout>
+        <View
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:id="@+id/redpoint_guide_indicator"
+            android:background="@drawable/bluepoint"/>
+    </FrameLayout>
+</RelativeLayout>

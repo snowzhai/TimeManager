@@ -11,6 +11,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
 import com.tm.timemanager.R;
+import com.tm.timemanager.Utils.PrefUtils;
 
 public class SplashActivity extends Activity {
     private RelativeLayout rl_splash;
@@ -47,8 +48,16 @@ public class SplashActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                        startActivity(new Intent(SplashActivity.this,HomeActivity.class));
-                        finish();
+
+                //判断是不是第一次打开应用，第一次打开进入引导页
+                boolean jump_to_user_guide = PrefUtils.getBoolean(SplashActivity.this, "jump_to_user_guide", true);
+                if(jump_to_user_guide){
+                    startActivity(new Intent(SplashActivity.this,GuideActivity.class));
+                }else {
+                    startActivity(new Intent(SplashActivity.this,HomeActivity.class));
+                }
+                finish();
+
             }
 
             @Override

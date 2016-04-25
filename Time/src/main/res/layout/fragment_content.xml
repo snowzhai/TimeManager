@@ -117,7 +117,6 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
-            android:onClick="xxxxxx"
             android:padding="10dp"
             android:gravity="center"
             android:layout_marginLeft="10dp"

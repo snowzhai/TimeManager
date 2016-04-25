@@ -2,6 +2,7 @@ package com.tm.timemanager.pager;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +33,8 @@ public class HomePager extends BasePager {
     public View mView;
     private int i;
     private RoundProgressBar roundProgressBar;
+    private RingView ringView;
+    private int totalRuntime;
 
     public HomePager(Activity activity) {
         super(activity);
@@ -92,15 +95,28 @@ public class HomePager extends BasePager {
 
         animator2.start();
 
-        roundProgressBar = (RoundProgressBar) mView.findViewById(R.id.roundProgressBar);
-        int width = MyApplication.getPhoneWidth(mActivity);
-        int height = MyApplication.getPhoneHeight(mActivity);
-        i = (height > width) ? width : height;
+//        roundProgressBar = (RoundProgressBar) mView.findViewById(R.id.roundProgressBar);
+//        int width = MyApplication.getPhoneWidth(mActivity);
+//        int height = MyApplication.getPhoneHeight(mActivity);
+//        i = (height > width) ? width : height;
 
-        roundProgressBar.setCricleProgressColor(0xffB0F44B);
+//        roundProgressBar.setCricleProgressColor(0xffB0F44B);
+//        roundProgressBar.setProgress(80);
 
+        ringView = (RingView) mView.findViewById(R.id.ringview);
+        DBOpenHelperdao dbOpenHelperdao = new DBOpenHelperdao(mActivity);
+        Cursor cursor = dbOpenHelperdao.getappdaily(DateUtil.getDate());
+        while (cursor.moveToNext()){
 
-        roundProgressBar.setProgress(80);
+           int  runtime = cursor.getInt(cursor.getColumnIndex("runtime"));
+            totalRuntime = totalRuntime+runtime;
+        }
+
+        float i = (float) (360- (totalRuntime / (24 * 60 * 60.0)) * 360);
+
+        Log.i("totalRuntime",i+"");
+
+        ringView.setProgress(i);
 
 
     }

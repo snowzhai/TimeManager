@@ -3,19 +3,28 @@ package com.tm.timemanager.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Service.Lookservice;
+import com.tm.timemanager.Utils.DateUtil;
 import com.tm.timemanager.application.MyApplication;
+import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.fragment.ContentFragment;
 import com.tm.timemanager.fragment.LeftMenuFragment;
 import com.tm.timemanager.fragment.ManagementFragment;
@@ -215,9 +224,9 @@ public class HomeActivity extends SlidingFragmentActivity {
        @Override
         public void onReceive(Context context, Intent intent) {
 //            Log.i("哈哈","接收到广播了");
-           if (isChecked){
-           }
-                initTzl();
+//           if (isChecked){
+//           }
+//                initTzl();
         }
     }
 }
