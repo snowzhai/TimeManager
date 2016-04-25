@@ -13,11 +13,14 @@ import com.tm.timemanager.application.MyApplication;
  */
 public class SettingFragment extends BaseFragment {
 
+    private boolean isChecked;
+
     @Override
     public View initViews() {
-
+        isChecked = MyApplication.gettime("isChecked", true);
         View view = View.inflate(mActivity, R.layout.fragment_setting, null);
         final Switch swith = (Switch) view.findViewById(R.id.switch1);
+        swith.setChecked(!isChecked);
         swith.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

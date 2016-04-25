@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -38,6 +39,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 
     private FragmentManager fragmentManager;
     private boolean isChecked;
+    private NotificationManager manager;
 
 
     @Override
@@ -45,7 +47,7 @@ public class HomeActivity extends SlidingFragmentActivity {
 
         super.onCreate(savedInstanceState);
 
-        isChecked = MyApplication.gettime("isChecked", false);
+        isChecked = MyApplication.gettime("isChecked", true);
         if (isChecked) {
         }
             initTzl();//创建通知栏
@@ -96,7 +98,7 @@ public class HomeActivity extends SlidingFragmentActivity {
         int todaycount = getappdaily.getCount();
         Cursor getapptotal = dbOpenHelperdao.getapptotal();
         int todayappc = getappdaily.getCount();
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //构建通知
         Notification notification = new Notification();
 
@@ -228,10 +230,18 @@ public class HomeActivity extends SlidingFragmentActivity {
 
        @Override
         public void onReceive(Context context, Intent intent) {
-//            Log.i("哈哈","接收到广播了");
-           if (isChecked){
+           isChecked = MyApplication.gettime("isChecked", true);
+               initTzl();//创建通知栏
+           if (isChecked) {
+               Log.i("哈哈","接收到广播了"+isChecked);
+               initTzl();//创建通知栏
+
            }
-                initTzl();
+           if (isChecked) {
+               Log.i("哈哈","接收到广播了"+isChecked);
+//               initTzl();//创建通知栏
+               manager.cancelAll();
+           }
         }
     }
 }
