@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ColorArcProgressBar-library" />
             <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
             <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />
@@ -18,6 +19,7 @@
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/ColorArcProgressBar-library" />
             <option value="$PROJECT_DIR$/MPChartLib" />
             <option value="$PROJECT_DIR$/Time" />
             <option value="$PROJECT_DIR$/ViewPagerIndicator-lib" />

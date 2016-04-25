@@ -66,13 +66,16 @@
 </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:padding="10dp"
+            android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
@@ -84,7 +87,7 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/tv_main_appusagetime_"
-                android:text="APP Frequency"
+                android:text="Frequency"
                 android:gravity="center"
                 android:padding="5dp"
                 android:layout_width="match_parent"
@@ -93,6 +96,9 @@
         <LinearLayout
             android:padding="10dp"
             android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
@@ -103,7 +109,7 @@
                 android:id="@+id/tv_main_appuagecount"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="APP Count"
+                android:text="Count"
                 android:gravity="center"
                 android:padding="5dp"
                 android:id="@+id/tv_main_appuagecount_"
@@ -113,6 +119,8 @@
         <LinearLayout
             android:onClick="xxxxxx"
             android:padding="10dp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -124,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
-                android:text="Phone Usage"
+                android:text="Usage"
                 android:gravity="center"
                 android:padding="5dp"
                 android:id="@+id/tv_main_phoneusagecount_"

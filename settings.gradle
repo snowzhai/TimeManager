@@ -1,2 +1,2 @@
-include ':Time', ':slidingmenu-library', ':MPChartLib', ':hellocharts-library'
+include ':Time', ':slidingmenu-library', ':MPChartLib', ':hellocharts-library', ':ColorArcProgressBar-library'
 include ':ViewPagerIndicator-lib'

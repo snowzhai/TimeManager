@@ -134,12 +134,6 @@ public  class TrendFragment extends Fragment {
             Log.i("dataInitial",apps[i]);
         }
 
-
-
-
-
-
-
     }
 
     private void generateColumnData() {

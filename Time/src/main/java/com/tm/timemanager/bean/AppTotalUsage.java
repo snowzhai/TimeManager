@@ -28,4 +28,48 @@ public class AppTotalUsage {
     public AppTotalUsage(String packname) {
         this.packname = packname;
     }
+
+
+    public String getPackname() {
+        return packname;
+    }
+
+    public void setPackname(String packname) {
+        this.packname = packname;
+    }
+
+    public String getAppname() {
+        return appname;
+    }
+
+    public void setAppname(String appname) {
+        this.appname = appname;
+    }
+
+    public long getTotaltime() {
+        return totaltime;
+    }
+
+    public void setTotaltime(long totaltime) {
+        this.totaltime = totaltime;
+    }
+
+    public int getTotalcount() {
+        return totalcount;
+    }
+
+    public void setTotalcount(int totalcount) {
+        this.totalcount = totalcount;
+    }
+
+
+    @Override
+    public String toString() {
+        return "AppTotalUsage{" +
+                "packname='" + packname + '\'' +
+                ", appname='" + appname + '\'' +
+                ", totaltime=" + totaltime +
+                ", totalcount=" + totalcount +
+                '}';
+    }
 }

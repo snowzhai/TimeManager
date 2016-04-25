@@ -11,8 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.tm.timemanager.R;
 import com.tm.timemanager.Utils.DateUtil;
+import com.tm.timemanager.application.MyApplication;
 import com.tm.timemanager.dao.DBOpenHelperdao;
 import com.tm.timemanager.view.RingView;
+import com.tm.timemanager.view.RoundProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +31,7 @@ public class HomePager extends BasePager {
     private LinearLayout rl_main_content;
     public View mView;
     private int i;
+    private RoundProgressBar roundProgressBar;
 
     public HomePager(Activity activity) {
         super(activity);
@@ -89,6 +92,15 @@ public class HomePager extends BasePager {
 
         animator2.start();
 
+        roundProgressBar = (RoundProgressBar) mView.findViewById(R.id.roundProgressBar);
+        int width = MyApplication.getPhoneWidth(mActivity);
+        int height = MyApplication.getPhoneHeight(mActivity);
+        i = (height > width) ? width : height;
+
+        roundProgressBar.setCricleProgressColor(0xffB0F44B);
+
+
+        roundProgressBar.setProgress(80);
 
 
     }
